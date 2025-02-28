@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: oklch(38.26% 0.1732 263.19);
+  --color-secondary: oklch(56.38% 0.1454 262.03);
+  --color-primary_light: oklch(61.33% 0.1577 269.05);
+  --color-secondary_light: oklch(76.92% 0.0996 262.66);
+  --color-accent1: oklch(89.2% 0.0203 233.88);
+  --color-accent2: oklch(77.76% 0.0185 8.9);
+
+  --breakpoint-xs: 30rem;
+  --breakpoint-s: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+  --breakpoint-3xl: 120rem;
+}

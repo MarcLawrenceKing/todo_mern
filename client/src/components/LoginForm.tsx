@@ -1,0 +1,65 @@
+import FormLogo from "../assets/To Do List.png";
+
+import { useState } from "react";
+
+const LoginForm = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log({ username, password });
+  };
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-accent2">
+      <div className=" flex justify-center flex-col bg-accent1 p-10 rounded-lg shadow-md min-w-full min-h-screen xs:min-h-full xs:min-w-96">
+        <img src={FormLogo} className="h-24 w-32 block mx-auto" />
+        <h2 className="text-2xl font-semibold text-center mb-3">Login</h2>
+        <form onSubmit={handleSubmit} className="">
+          <div className="mb-4">
+            <input
+              type="text"
+              className=" w-full p-2 border rounded "
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <input
+              type="password"
+              className=" w-full p-2 border rounded"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className=" w-full overflow-hidden bg-primary text-white p-2 rounded hover:bg-primary_light mb-6 text-base xs:text-lg "
+          >
+            Login
+          </button>
+        </form>
+        <div className="flex flex-col items-center gap-2">
+          <a href="#" className="text-primary text-sm xs:text-base">
+            Forgot Password?
+          </a>
+          <p className="text-secondary text-xs"> ----------- OR ----------- </p>
+          <button
+            type="submit"
+            className=" overflow-hidden w-2/4 bg-secondary text-white p-2 rounded hover:bg-secondary_light text-sm xs:text-base"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default LoginForm;
