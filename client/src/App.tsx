@@ -1,12 +1,13 @@
-import "./App.css";
+import AppRoutes from "./routes";
 
-import LoginForm from "./components/LoginForm";
-import Header from "./components/Header";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <>
-      <Header />
+      <Router>
+        <AppRoutes />
+      </Router>
     </>
   );
 }

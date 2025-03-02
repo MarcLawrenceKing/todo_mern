@@ -1,8 +1,9 @@
 import FormLogo from "../assets/To Do List.png";
-
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,6 +40,7 @@ const LoginForm = () => {
           </div>
 
           <button
+            onClick={() => navigate("/home")}
             type="submit"
             className=" w-full overflow-hidden bg-primary text-white p-2 rounded hover:bg-primary_light mb-6 text-base xs:text-lg "
           >
