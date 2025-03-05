@@ -13,24 +13,24 @@ const Button: FC<BtnProps> = ({
   iconName,
   label,
   onClick,
-  variant,
+  variant = "primary",
   className,
 }) => {
-  const baseStyles = " ";
+  const baseStyles = "transition-all bg-black";
   const variantStyles = {
-    primary: "bg-blue-500 text-white hover:bg-blue-600",
+    primary:
+      "text-white text-base flex justify-center gap-2 bg-primary p-2 hover:bg-primary_light rounded-xl w-48",
     secondary: "bg-gray-500 text-white hover:bg-gray-600",
     danger: "bg-red-500 text-white hover:bg-red-600",
   };
   return (
-    <div
-      className={`flex flex-row justify-center gap-2 bg-primary_light hover:bg-primary rounded-lg  ${className}`}
+    <button
+      onClick={onClick}
+      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
     >
-      <DynamicIcon name={iconName} className="text-text_primary " size={35} />
-      <button onClick={onClick} className={baseStyles}>
-        {label}
-      </button>
-    </div>
+      <DynamicIcon name={iconName} className="text-white" size={25} />
+      {label}
+    </button>
   );
 };
 
