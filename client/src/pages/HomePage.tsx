@@ -12,7 +12,7 @@ const HomePage = () => {
           <p className="text-base ">Hello, User!</p>
           <p className="text-base "> Date</p>
         </div>
-        <div className="flex flex-col items-center gap-10">
+        <div className="flex flex-col items-center gap-5">
           <Button
             label="Add To-Do"
             iconName="circle-plus"

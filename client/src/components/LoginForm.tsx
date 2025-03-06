@@ -15,7 +15,7 @@ const LoginForm = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-accent2">
       <div className=" flex justify-center flex-col bg-accent1 p-10 rounded-lg shadow-md min-w-full min-h-screen xs:min-h-full xs:min-w-96">
-        <img src={FormLogo} className="h-24 w-32 block mx-auto" />
+        <img src={FormLogo} className="h-24 w-30 block mx-auto mb-4" />
         <h2 className="text-2xl font-semibold text-center mb-3">Login</h2>
         <form onSubmit={handleSubmit} className="">
           <div className="mb-4">
