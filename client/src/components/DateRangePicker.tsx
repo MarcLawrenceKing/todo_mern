@@ -8,7 +8,7 @@ const DateRangePicker = () => {
 
   return (
     <div>
-      <div className="flex flex-col w-45 mb-2">
+      <div className="w-45 mb-2">
         <p className="text-sm">RANGE (DUE DATE)</p>
         <div className="flex flex-row justify-between items-center">
           <p className="text-sm text-white">START DATE</p>
@@ -35,11 +35,11 @@ const DateRangePicker = () => {
           />
         </div>
       </div>
-      {startDate && endDate && (
+      {/* {startDate && endDate && (
         <p className="text-sm font-semibold text-gray-300">
           Selected: {startDate.toDateString()} - {endDate.toDateString()}
         </p>
-      )}
+      )} */}
     </div>
   );
 };

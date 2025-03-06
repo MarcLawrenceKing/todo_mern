@@ -29,7 +29,7 @@ const Filters = () => {
   const [openFiltersSection, setOpenFiltersSection] = useState<boolean>(false);
 
   return (
-    <div className="w-72 h-auto bg-secondary text-white p-3 rounded-xl transition-all">
+    <div className="w-72 h-auto bg-secondary text-white p-3 rounded-xl transition-all md:w-180">
       <div
         className="flex flex-row justify-between items-center"
         onClick={() => setOpenFiltersSection(!openFiltersSection)}
@@ -43,8 +43,8 @@ const Filters = () => {
       </div>
 
       {openFiltersSection && (
-        <div>
-          <div className="grid grid-cols-3 gap-3 justify-center mt-2">
+        <div className="">
+          <div className="grid grid-cols-3 gap-3 justify-center mt-2 md:grid-cols-[20%_20%_30%_30%] md:gap-0">
             <RadioBtnGroup
               options={[
                 { value: "pending", label: "Pending" },
@@ -67,8 +67,6 @@ const Filters = () => {
             />
 
             <SearchInput />
-          </div>
-          <div className="flex justify-start mt-2">
             <DateRangePicker />
           </div>
         </div>
