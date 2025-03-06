@@ -9,7 +9,7 @@ const DateRangePicker = () => {
   return (
     <div>
       <div className="w-45 mb-2">
-        <p className="text-sm">RANGE (DUE DATE)</p>
+        <p className="text-sm  md:text-base">RANGE (DUE DATE)</p>
         <div className="flex flex-row justify-between items-center">
           <p className="text-sm text-white">START DATE</p>
           <DatePicker

@@ -9,10 +9,11 @@
   --color-accent2: oklch(77.76% 0.0185 8.9);
 
   --color-bgcolor: oklch(35.23% 0 0);
-
+  --breakpoint-todo2: ;
+  --breakpoint-todo3: 59.375rem;
   --breakpoint-xs: 30rem;
   --breakpoint-s: 40rem;
-  --breakpoint-md: 48rem;
+  --breakpoint-md: 47rem;
   --breakpoint-lg: 64rem;
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 96rem;
@@ -24,4 +25,5 @@
 
 body {
   @apply font-mono;
+  background: #242424;
 }

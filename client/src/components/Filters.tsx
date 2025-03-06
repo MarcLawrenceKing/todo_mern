@@ -5,23 +5,6 @@ import DateRangePicker from "./DateRangePicker";
 import { useState } from "react";
 import SearchInput from "../components/SearchInput";
 
-// interface BtnProps {
-//   label?: string;
-//   onClick?: () => void;
-//   variant?: "primary" | "secondary" | "danger";
-//   iconName?: any;
-//   className?: string;
-// }
-
-// const Filters: FC<BtnProps> = (
-//   {
-//     iconName,
-//     label,
-//     onClick,
-//     variant = "primary",
-//     className,
-//   }
-
 const Filters = () => {
   const [selectedPriority, setSelectedPriority] = useState<string>("high");
   const [selectedStatus, setSelectedStatus] = useState<string>("pending");
@@ -29,12 +12,12 @@ const Filters = () => {
   const [openFiltersSection, setOpenFiltersSection] = useState<boolean>(false);
 
   return (
-    <div className="w-72 h-auto bg-secondary text-white p-3 rounded-xl transition-all md:w-180">
+    <div className="w-72 h-auto bg-secondary text-white p-3 rounded-xl transition-all md:w-180 ">
       <div
         className="flex flex-row justify-between items-center"
         onClick={() => setOpenFiltersSection(!openFiltersSection)}
       >
-        <p className="text-base"> Filters</p>
+        <p className="text-base md:text-lg"> Filters</p>
         {openFiltersSection ? (
           <DynamicIcon name="chevron-down" size={20} />
         ) : (

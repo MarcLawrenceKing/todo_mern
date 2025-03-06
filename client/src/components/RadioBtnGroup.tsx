@@ -1,18 +1,20 @@
-type RadioBtnGroupProps = {
+import { FC } from "react";
+
+interface RadioBtnGroupProps {
   options: { value: string; label: string }[];
   selected: string;
   onChange: (value: string) => void;
   name: string;
-};
+}
 
-const RadioBtnGroup: React.FC<RadioBtnGroupProps> = ({
+const RadioBtnGroup: FC<RadioBtnGroupProps> = ({
   options,
   selected,
   onChange,
   name,
 }) => {
   return (
-    <div className="flex flex-col text-sm text-white">
+    <div className="flex flex-col text-sm text-white md:text-base">
       <p>{name}</p>
       {options.map((option) => (
         <label
