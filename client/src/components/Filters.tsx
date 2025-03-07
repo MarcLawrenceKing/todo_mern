@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { DynamicIcon } from "lucide-react/dynamic";
 import RadioBtnGroup from "../components/RadioBtnGroup";
 import DateRangePicker from "./DateRangePicker";
@@ -12,7 +11,7 @@ const Filters = () => {
   const [openFiltersSection, setOpenFiltersSection] = useState<boolean>(false);
 
   return (
-    <div className="w-72 h-auto bg-secondary text-white p-3 rounded-xl transition-all md:w-180 ">
+    <div className="w-72 h-auto bg-secondary text-white p-3 hover:brightness-95 rounded-xl transition-all md:w-180 ">
       <div
         className="flex flex-row justify-between items-center"
         onClick={() => setOpenFiltersSection(!openFiltersSection)}

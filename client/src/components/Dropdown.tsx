@@ -34,7 +34,7 @@ const Dropdown: FC<DropdownProps> = ({ options, onSelect, defaultValue }) => {
           selected
             ? `${selected.bgColor} ${selected.textColor}`
             : "bg-gray-600 text-white"
-        } hover:opacity-80 transition`}
+        } hover:brightness-90 transition`}
       >
         {selected ? selected.label : "None"}{" "}
         {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -42,13 +42,13 @@ const Dropdown: FC<DropdownProps> = ({ options, onSelect, defaultValue }) => {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute left-0 -mt-2 w-36 rounded-lg z-100">
+        <div className="absolute left-0 -mt-2 w-36 rounded-lg z-2">
           <ul className="py-2">
             {options.map((option, index) => (
               <li
                 key={index}
                 onClick={() => handleSelect(option)}
-                className={`px-4 py-2 hover:bg-gray-100 cursor-pointer transition ${option.bgColor} ${option.textColor} hover:opacity:80`}
+                className={`px-4 py-2 hover:brightness-90 cursor-pointer transition ${option.bgColor} ${option.textColor} hover:opacity:80`}
               >
                 {option.label}
               </li>

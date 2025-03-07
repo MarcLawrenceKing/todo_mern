@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FC } from "react";
 import Dropdown from "./Dropdown";
 import { DropdownOption } from "./Dropdown";
+import Button from "./Button";
 
 type TodoStatus = "PENDING" | "DONE" | "ONGOING";
 type TodoPriority = "HIGH" | "MEDIUM" | "LOW";
@@ -95,6 +96,7 @@ const ToDo: FC<TodoProps> = ({
     if (selected) {
       setSelectedStatus(selected);
     }
+    console.log(selected);
   };
 
   const handleSelectPriority = (option: DropdownOption) => {
@@ -102,6 +104,7 @@ const ToDo: FC<TodoProps> = ({
     if (selected) {
       setSelectedPriority(selected);
     }
+    console.log(selected);
   };
 
   const [updatedAt, setUpdatedAt] = useState<string>(
@@ -118,7 +121,7 @@ const ToDo: FC<TodoProps> = ({
           <strong>Status:</strong>{" "}
           <Dropdown
             options={todoStatuses}
-            onSelect={handleSelectPriority}
+            onSelect={handleSelectStatus}
             defaultValue={selectedStatus}
           />
         </div>
@@ -139,6 +142,22 @@ const ToDo: FC<TodoProps> = ({
         <p>
           <strong>Updated At:</strong> {updatedAt}
         </p>
+      </div>
+      <div className="grid grid-cols-2 mt-2 gap-2 justify-items-center">
+        <Button
+          label="Update"
+          iconName="circle-arrow-up"
+          onClick={() => alert("Update Clicked")}
+          variant="secondary"
+          className="text-med-ongo-bg bg-med-ongo"
+        />
+        <Button
+          label="Delete"
+          iconName="trash-2"
+          onClick={() => alert("Delete Clicked")}
+          variant="secondary"
+          className="text-high-pend-bg bg-high-pend"
+        />
       </div>
     </div>
   );

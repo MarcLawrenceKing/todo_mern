@@ -1,4 +1,3 @@
-import { DynamicIcon } from "lucide-react/dynamic";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Filters from "../components/Filters";
@@ -18,6 +17,7 @@ const HomePage = () => {
             label="Add To-Do"
             iconName="circle-plus"
             onClick={() => alert("Primary Button Clicked")}
+            className="text-low-done-bg bg-low-done"
           />
           <Filters />
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 todo3:grid-cols-3">

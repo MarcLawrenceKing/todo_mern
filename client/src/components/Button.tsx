@@ -4,7 +4,7 @@ import { DynamicIcon } from "lucide-react/dynamic";
 interface BtnProps {
   label?: string;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "danger";
+  variant?: "primary" | "secondary";
   iconName?: any;
   className?: string;
 }
@@ -16,19 +16,24 @@ const Button: FC<BtnProps> = ({
   variant = "primary",
   className,
 }) => {
-  const baseStyles = "transition-all bg-black";
+  const baseStyles =
+    "transition-all flex justify-center items-center gap-2 rounded-xl hover:brightness-90";
   const variantStyles = {
-    primary:
-      "text-white text-base flex justify-center items-center gap-2 bg-primary p-2 hover:bg-primary_light rounded-xl w-48 md:w-160 md:text-lg",
-    secondary: "bg-gray-500 text-white hover:bg-gray-600",
-    danger: "bg-red-500 text-white hover:bg-red-600",
+    primary: {
+      styles: "py-2 text-base w-48 md:w-160 md:text-lg",
+      iconSize: 23,
+    },
+    secondary: {
+      styles: "py-1 text-sm md:text-base w-28 ",
+      iconSize: 16,
+    },
   };
   return (
     <button
       onClick={onClick}
-      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
+      className={`${baseStyles} ${variantStyles[variant].styles} ${className}`}
     >
-      <DynamicIcon name={iconName} className="text-white" size={23} />
+      <DynamicIcon name={iconName} size={variantStyles[variant].iconSize} />
       {label}
     </button>
   );

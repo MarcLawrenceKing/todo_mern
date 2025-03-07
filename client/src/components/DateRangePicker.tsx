@@ -7,7 +7,7 @@ const DateRangePicker = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   return (
-    <div>
+    <div className="z-20">
       <div className="w-45 mb-2">
         <p className="text-sm  md:text-base">RANGE (DUE DATE)</p>
         <div className="flex flex-row justify-between items-center">
@@ -18,7 +18,8 @@ const DateRangePicker = () => {
             selectsStart
             startDate={startDate}
             endDate={endDate}
-            className="border border-gray-300 rounded-md pl-1 w-23 text-gray-700 text-sm focus:ring focus:ring-blue-300"
+            className="border border-gray-300 rounded-md pl-1 w-23 text-white text-sm focus:ring focus:ring-blue-300"
+            portalId="root"
           />
         </div>
 
@@ -31,7 +32,8 @@ const DateRangePicker = () => {
             startDate={startDate}
             endDate={endDate}
             minDate={startDate || undefined}
-            className="border border-gray-300 rounded-md pl-1 w-23 text-gray-700 text-sm focus:ring focus:ring-blue-300"
+            className="border border-gray-300 rounded-md pl-1 w-23 text-white text-sm focus:ring focus:ring-blue-300"
+            portalId="root"
           />
         </div>
       </div>
