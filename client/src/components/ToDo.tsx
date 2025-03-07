@@ -1,9 +1,24 @@
 import { useState } from "react";
 import { FC } from "react";
+import Dropdown from "./Dropdown";
+import { DropdownOption } from "./Dropdown";
 
-type TodoStatus = "PENDING" | "COMPLETED" | "IN_PROGRESS";
+type TodoStatus = "PENDING" | "DONE" | "ONGOING";
 type TodoPriority = "HIGH" | "MEDIUM" | "LOW";
 
+interface TodoStatusObject {
+  status: TodoStatus;
+  label: string;
+  textColor: string;
+  bgColor: string;
+}
+
+interface TodoPriorityObject {
+  priority: TodoPriority;
+  label: string;
+  textColor: string;
+  bgColor: string;
+}
 interface TodoProps {
   title: string;
   description: string;
@@ -13,18 +28,48 @@ interface TodoProps {
   createdAt: string;
 }
 
-const getPriorityColor = (priority: TodoPriority): string => {
-  switch (priority) {
-    case "HIGH":
-      return "red";
-    case "MEDIUM":
-      return "orange";
-    case "LOW":
-      return "green";
-    default:
-      return "gray";
-  }
-};
+const todoStatuses: TodoStatusObject[] = [
+  {
+    status: "PENDING",
+    label: "PENDING",
+    textColor: "text-high-pend",
+    bgColor: "bg-high-pend-bg",
+  },
+  {
+    status: "ONGOING",
+    label: "ONGOING",
+
+    textColor: "text-med-ongo",
+    bgColor: "bg-med-ongo-bg",
+  },
+  {
+    status: "DONE",
+    label: "DONE",
+    textColor: "text-low-done",
+    bgColor: "bg-low-done-bg",
+  },
+];
+
+const todoPriorities: TodoPriorityObject[] = [
+  {
+    priority: "HIGH",
+    label: "HIGH",
+    textColor: "text-high-pend",
+    bgColor: "bg-high-pend-bg",
+  },
+  {
+    priority: "MEDIUM",
+    label: "MEDIUM",
+    textColor: "text-med-ongo",
+    bgColor: "bg-med-ongo-bg",
+  },
+  {
+    priority: "LOW",
+    label: "LOW",
+    textColor: "text-low-done",
+    bgColor: "bg-low-done-bg",
+  },
+];
 
 const ToDo: FC<TodoProps> = ({
   title,
@@ -34,32 +79,60 @@ const ToDo: FC<TodoProps> = ({
   priority,
   createdAt,
 }) => {
+  // ✅ Set default values for status & priority
+  const defaultStatus =
+    todoStatuses.find((s) => s.status === status) || todoStatuses[0];
+  const defaultPriority =
+    todoPriorities.find((p) => p.priority === priority) || todoPriorities[0];
+
+  // ✅ State for dropdown selections
+  const [selectedStatus, setSelectedStatus] = useState(defaultStatus);
+  const [selectedPriority, setSelectedPriority] = useState(defaultPriority);
+
+  // ✅ Handle selection changes
+  const handleSelectStatus = (option: DropdownOption) => {
+    const selected = todoStatuses.find((s) => s.label === option.label);
+    if (selected) {
+      setSelectedStatus(selected);
+    }
+  };
+
+  const handleSelectPriority = (option: DropdownOption) => {
+    const selected = todoPriorities.find((p) => p.label === option.label);
+    if (selected) {
+      setSelectedPriority(selected);
+    }
+  };
+
   const [updatedAt, setUpdatedAt] = useState<string>(
     new Date().toLocaleString()
   );
 
   return (
-    <div className="w-72 h-auto bg-primary text-white text-sm p-3 rounded-xl transition-all md:text-base ">
-      <h2 className="text-xl font-bold">{title}</h2>
+    <div className="w-72 h-auto bg-bgcolor2 text-black text-sm p-3 rounded-xl transition-all md:text-base ">
+      <h2 className="text-base font-bold md:text-lg">{title}</h2>
       <p className="text-gray-600">{description}</p>
 
       <div className="mt-2 text-sm">
-        <p>
+        <div>
           <strong>Status:</strong>{" "}
-          <span className="font-medium text-blue-600">{status}</span>
-        </p>
+          <Dropdown
+            options={todoStatuses}
+            onSelect={handleSelectPriority}
+            defaultValue={selectedStatus}
+          />
+        </div>
         <p>
           <strong>Due Date:</strong> {new Date(dueDate).toLocaleString()}
         </p>
-        <p>
+        <div>
           <strong>Priority:</strong>{" "}
-          <span
-            className="font-medium"
-            style={{ color: getPriorityColor(priority) }}
-          >
-            {priority}
-          </span>
-        </p>
+          <Dropdown
+            options={todoPriorities}
+            onSelect={handleSelectPriority}
+            defaultValue={selectedPriority}
+          />
+        </div>
         <p>
           <strong>Created At:</strong> {new Date(createdAt).toLocaleString()}
         </p>

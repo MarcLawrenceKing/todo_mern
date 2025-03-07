@@ -22,27 +22,27 @@ const HomePage = () => {
           <Filters />
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 todo3:grid-cols-3">
             <ToDo
-              title="Complete Project"
+              title="Complete Project 1"
               description="Finish the React to-do app by end of the week."
-              status="PENDING"
+              status="DONE"
               dueDate="2025-03-10T12:00:00"
               priority="HIGH"
               createdAt="2025-03-06T10:00:00"
             />
             <ToDo
-              title="Complete Project"
+              title="Complete Project 2"
               description="Finish ."
               status="PENDING"
               dueDate="2025-0"
-              priority="HIGH"
+              priority="MEDIUM"
               createdAt="202"
             />
             <ToDo
-              title="Complete mplete Projecmplete Projecmplete Projecmplete Projecmplete Projecmplete Projecmplete Projecmplete Projecmplete ProjecProject"
+              title="Complete Project 3"
               description="Finish ."
-              status="PENDING"
+              status="ONGOING"
               dueDate="2025-0"
-              priority="HIGH"
+              priority="LOW"
               createdAt="202"
             />
           </div>

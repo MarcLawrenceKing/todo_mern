@@ -19,9 +19,9 @@ const Filters = () => {
       >
         <p className="text-base md:text-lg"> Filters</p>
         {openFiltersSection ? (
-          <DynamicIcon name="chevron-down" size={20} />
-        ) : (
           <DynamicIcon name="chevron-up" size={20} />
+        ) : (
+          <DynamicIcon name="chevron-down" size={20} />
         )}
       </div>
 

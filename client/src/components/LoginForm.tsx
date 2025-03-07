@@ -42,19 +42,22 @@ const LoginForm = () => {
           <button
             onClick={() => navigate("/home")}
             type="submit"
-            className=" w-full overflow-hidden bg-primary text-white p-2 rounded hover:bg-primary_light mb-6 text-base xs:text-lg "
+            className=" w-full overflow-hidden bg-primary text-white p-2 rounded hover:opacity-80 mb-6 text-base xs:text-lg "
           >
             Login
           </button>
         </form>
         <div className="flex flex-col items-center gap-2">
-          <a href="#" className="text-primary text-sm xs:text-base">
+          <a
+            href="#"
+            className="text-primary text-sm hover:opacity-80 xs:text-base"
+          >
             Forgot Password?
           </a>
           <p className="text-secondary text-xs"> ----------- OR ----------- </p>
           <button
             type="submit"
-            className=" overflow-hidden w-2/4 bg-secondary text-white p-2 rounded hover:bg-secondary_light text-sm xs:text-base"
+            className=" overflow-hidden w-2/4 bg-secondary text-white p-2 rounded hover:opacity-80 text-sm xs:text-base"
           >
             Register
           </button>
