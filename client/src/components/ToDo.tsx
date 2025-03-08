@@ -125,9 +125,6 @@ const ToDo: FC<TodoProps> = ({
             defaultValue={selectedStatus}
           />
         </div>
-        <p>
-          <strong>Due Date:</strong> {new Date(dueDate).toLocaleString()}
-        </p>
         <div>
           <strong>Priority:</strong>{" "}
           <Dropdown
@@ -136,6 +133,10 @@ const ToDo: FC<TodoProps> = ({
             defaultValue={selectedPriority}
           />
         </div>
+        <p>
+          <strong>Due Date:</strong> {new Date(dueDate).toLocaleString()}
+        </p>
+
         <p>
           <strong>Created At:</strong> {new Date(createdAt).toLocaleString()}
         </p>
