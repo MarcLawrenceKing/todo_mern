@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { FC } from "react";
 import Dropdown from "./Dropdown";
-import { DropdownOption } from "./Dropdown";
 import Button from "./Button";
 import { useTodoEdit, TodoStatus, TodoPriority } from "../utils/useTodoEdit";
 
@@ -107,6 +105,7 @@ const ToDo: FC<TodoProps> = ({
             options={todoStatuses}
             onSelect={handleSelectStatus}
             defaultValue={selectedStatus}
+            isEditable={isEditing}
           />
         </div>
         <div>
@@ -115,6 +114,7 @@ const ToDo: FC<TodoProps> = ({
             options={todoPriorities}
             onSelect={handleSelectPriority}
             defaultValue={selectedPriority}
+            isEditable={isEditing}
           />
         </div>
         <p>
@@ -131,7 +131,7 @@ const ToDo: FC<TodoProps> = ({
       <div className="grid grid-cols-2 mt-2 gap-2 justify-items-center">
         <Button
           label={isEditing ? "Save" : "Update"}
-          iconName={isEditing ? "check-circle" : "circle-arrow-up"}
+          iconName={isEditing ? "circle-check" : "circle-arrow-up"}
           onClick={toggleEditMode}
           variant="secondary"
           className={

@@ -11,15 +11,22 @@ interface DropdownProps {
   options: DropdownOption[]; // Dynamic options
   onSelect: (option: DropdownOption) => void; // Callback when an option is selected
   defaultValue?: DropdownOption;
+  isEditable: boolean; //  prop to control editability
 }
 
-const Dropdown: FC<DropdownProps> = ({ options, onSelect, defaultValue }) => {
+const Dropdown: FC<DropdownProps> = ({
+  options,
+  onSelect,
+  defaultValue,
+  isEditable,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<DropdownOption | null>(
     defaultValue || null
   );
 
   const handleSelect = (option: DropdownOption) => {
+    if (!isEditable) return; // Prevent selection when not editable
     setSelected(option);
     onSelect(option);
     setIsOpen(false); // Close dropdown after selection
@@ -29,19 +36,25 @@ const Dropdown: FC<DropdownProps> = ({ options, onSelect, defaultValue }) => {
     <div className="relative inline-block ">
       {/* Dropdown Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className={`flex items-center justify-between w-36 px-4 rounded-lg  ${
+        onClick={() => isEditable && setIsOpen(!isOpen)}
+        className={`flex items-center justify-between w-36 px-4 rounded-lg transition ${
           selected
             ? `${selected.bgColor} ${selected.textColor}`
             : "bg-gray-600 text-white"
-        } hover:brightness-90 transition`}
+        } ${isEditable ? `hover:brightness-90` : "hover:brightness-95"} `}
       >
         {selected ? selected.label : "None"}{" "}
-        {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        {isEditable ? (
+          isOpen ? (
+            <ChevronUp size={16} />
+          ) : (
+            <ChevronDown size={16} />
+          )
+        ) : null}
       </button>
 
       {/* Dropdown Menu */}
-      {isOpen && (
+      {isOpen && isEditable && (
         <div className="absolute left-0 -mt-2 w-36 rounded-lg z-2">
           <ul className="py-2">
             {options.map((option, index) => (
