@@ -2,8 +2,11 @@ import Button from "../components/Button";
 import Header from "../components/Header";
 import Filters from "../components/Filters";
 import ToDo from "../components/ToDo";
+import { useState } from "react";
+import AddModal from "../components/AddModal";
 
 const HomePage = () => {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   return (
     <>
       <Header />
@@ -16,11 +19,15 @@ const HomePage = () => {
           <Button
             label="Add To-Do"
             iconName="circle-plus"
-            onClick={() => alert("Primary Button Clicked")}
+            onClick={() => setIsAddModalOpen(true)}
             className="text-low-done-bg bg-low-done"
           />
+          <AddModal
+            isOpen={isAddModalOpen}
+            onClose={() => setIsAddModalOpen(false)}
+          />
           <Filters />
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 todo3:grid-cols-3">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 todo3:grid-cols-3">
             <ToDo
               title="Complete Project 1"
               description="Finish the React to-do app by end of the week."

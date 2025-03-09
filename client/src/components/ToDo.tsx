@@ -3,9 +3,7 @@ import { FC } from "react";
 import Dropdown from "./Dropdown";
 import { DropdownOption } from "./Dropdown";
 import Button from "./Button";
-
-type TodoStatus = "PENDING" | "DONE" | "ONGOING";
-type TodoPriority = "HIGH" | "MEDIUM" | "LOW";
+import { useTodoEdit, TodoStatus, TodoPriority } from "../utils/useTodoEdit";
 
 interface TodoStatusObject {
   status: TodoStatus;
@@ -29,49 +27,6 @@ interface TodoProps {
   createdAt: string;
 }
 
-const todoStatuses: TodoStatusObject[] = [
-  {
-    status: "PENDING",
-    label: "PENDING",
-    textColor: "text-high-pend",
-    bgColor: "bg-high-pend-bg",
-  },
-  {
-    status: "ONGOING",
-    label: "ONGOING",
-
-    textColor: "text-med-ongo",
-    bgColor: "bg-med-ongo-bg",
-  },
-  {
-    status: "DONE",
-    label: "DONE",
-    textColor: "text-low-done",
-    bgColor: "bg-low-done-bg",
-  },
-];
-
-const todoPriorities: TodoPriorityObject[] = [
-  {
-    priority: "HIGH",
-    label: "HIGH",
-    textColor: "text-high-pend",
-    bgColor: "bg-high-pend-bg",
-  },
-  {
-    priority: "MEDIUM",
-    label: "MEDIUM",
-    textColor: "text-med-ongo",
-    bgColor: "bg-med-ongo-bg",
-  },
-  {
-    priority: "LOW",
-    label: "LOW",
-    textColor: "text-low-done",
-    bgColor: "bg-low-done-bg",
-  },
-];
-
 const ToDo: FC<TodoProps> = ({
   title,
   description,
@@ -80,37 +35,66 @@ const ToDo: FC<TodoProps> = ({
   priority,
   createdAt,
 }) => {
+  const todoStatuses: TodoStatusObject[] = [
+    {
+      status: "PENDING",
+      label: "PENDING",
+      textColor: "text-high-pend",
+      bgColor: "bg-high-pend-bg",
+    },
+    {
+      status: "ONGOING",
+      label: "ONGOING",
+
+      textColor: "text-med-ongo",
+      bgColor: "bg-med-ongo-bg",
+    },
+    {
+      status: "DONE",
+      label: "DONE",
+      textColor: "text-low-done",
+      bgColor: "bg-low-done-bg",
+    },
+  ];
+
+  const todoPriorities: TodoPriorityObject[] = [
+    {
+      priority: "HIGH",
+      label: "HIGH",
+      textColor: "text-high-pend",
+      bgColor: "bg-high-pend-bg",
+    },
+    {
+      priority: "MEDIUM",
+      label: "MEDIUM",
+      textColor: "text-med-ongo",
+      bgColor: "bg-med-ongo-bg",
+    },
+    {
+      priority: "LOW",
+      label: "LOW",
+      textColor: "text-low-done",
+      bgColor: "bg-low-done-bg",
+    },
+  ];
+
   // ✅ Set default values for status & priority
   const defaultStatus =
     todoStatuses.find((s) => s.status === status) || todoStatuses[0];
   const defaultPriority =
     todoPriorities.find((p) => p.priority === priority) || todoPriorities[0];
 
-  // ✅ State for dropdown selections
-  const [selectedStatus, setSelectedStatus] = useState(defaultStatus);
-  const [selectedPriority, setSelectedPriority] = useState(defaultPriority);
-
-  // ✅ Handle selection changes
-  const handleSelectStatus = (option: DropdownOption) => {
-    const selected = todoStatuses.find((s) => s.label === option.label);
-    if (selected) {
-      setSelectedStatus(selected);
-    }
-    console.log(selected);
-  };
-
-  const handleSelectPriority = (option: DropdownOption) => {
-    const selected = todoPriorities.find((p) => p.label === option.label);
-    if (selected) {
-      setSelectedPriority(selected);
-    }
-    console.log(selected);
-  };
-
-  const [updatedAt, setUpdatedAt] = useState<string>(
-    new Date().toLocaleString()
-  );
-
+  const {
+    isEditing,
+    selectedStatus,
+    selectedPriority,
+    dueDateValue,
+    updatedAt,
+    toggleEditMode,
+    handleSelectStatus,
+    handleSelectPriority,
+    handleDueDateChange,
+  } = useTodoEdit(defaultStatus, defaultPriority, dueDate);
   return (
     <div className="w-72 h-auto bg-bgcolor2 text-black text-sm p-3 rounded-xl transition-all md:text-base ">
       <h2 className="text-base font-bold md:text-lg">{title}</h2>
@@ -146,11 +130,15 @@ const ToDo: FC<TodoProps> = ({
       </div>
       <div className="grid grid-cols-2 mt-2 gap-2 justify-items-center">
         <Button
-          label="Update"
-          iconName="circle-arrow-up"
-          onClick={() => alert("Update Clicked")}
+          label={isEditing ? "Save" : "Update"}
+          iconName={isEditing ? "check-circle" : "circle-arrow-up"}
+          onClick={toggleEditMode}
           variant="secondary"
-          className="text-med-ongo-bg bg-med-ongo"
+          className={
+            isEditing
+              ? "text-low-done-bg bg-low-done"
+              : "text-med-ongo-bg bg-med-ongo"
+          }
         />
         <Button
           label="Delete"

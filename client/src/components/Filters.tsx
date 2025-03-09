@@ -1,12 +1,12 @@
 import { DynamicIcon } from "lucide-react/dynamic";
-import RadioBtnGroup from "../components/RadioBtnGroup";
 import DateRangePicker from "./DateRangePicker";
 import { useState } from "react";
 import SearchInput from "../components/SearchInput";
+import CheckboxGroup from "./CheckboxGroup";
 
 const Filters = () => {
-  const [selectedPriority, setSelectedPriority] = useState<string>("high");
-  const [selectedStatus, setSelectedStatus] = useState<string>("pending");
+  const [selectedPriority, setSelectedPriority] = useState<string[]>([]);
+  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
 
   const [openFiltersSection, setOpenFiltersSection] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ const Filters = () => {
       {openFiltersSection && (
         <div className="">
           <div className="grid grid-cols-3 gap-3 justify-center mt-2 md:grid-cols-[20%_20%_30%_30%] md:gap-0">
-            <RadioBtnGroup
+            <CheckboxGroup
               options={[
                 { value: "pending", label: "Pending" },
                 { value: "ongoing", label: "Ongoing" },
@@ -37,7 +37,7 @@ const Filters = () => {
               onChange={setSelectedStatus}
               name="STATUS"
             />
-            <RadioBtnGroup
+            <CheckboxGroup
               options={[
                 { value: "high", label: "High" },
                 { value: "medium", label: "Medium" },

@@ -7,7 +7,7 @@ const DateRangePicker = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   return (
-    <div className="z-20">
+    <div className="z-2">
       <div className="w-45 mb-2">
         <p className="text-sm  md:text-base">RANGE (DUE DATE)</p>
         <div className="flex flex-row justify-between items-center">

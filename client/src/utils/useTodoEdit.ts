@@ -1,0 +1,52 @@
+import { useState } from "react";
+import { DropdownOption } from "../components/Dropdown";
+
+export type TodoStatus = "PENDING" | "DONE" | "ONGOING";
+export type TodoPriority = "HIGH" | "MEDIUM" | "LOW";
+
+export function useTodoEdit(
+  initialStatus: DropdownOption,
+  initialPriority: DropdownOption,
+  initialDueDate: string
+) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(initialStatus);
+    // ✅ State for dropdown selections
+  const [selectedPriority, setSelectedPriority] = useState(initialPriority);
+  const [dueDateValue, setDueDateValue] = useState(initialDueDate);
+  const [updatedAt, setUpdatedAt] = useState<string>(new Date().toLocaleString());
+
+  const toggleEditMode = () => {
+    if (isEditing) {
+      setUpdatedAt(new Date().toLocaleString());
+    }
+    setIsEditing(!isEditing);
+  };
+ // ✅ Handle selection changes
+  const handleSelectStatus = (option: DropdownOption) => {
+    if (!isEditing) return;
+    setSelectedStatus(option);
+  };
+
+  const handleSelectPriority = (option: DropdownOption) => {
+    if (!isEditing) return;
+    setSelectedPriority(option);
+  };
+
+  const handleDueDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isEditing) return;
+    setDueDateValue(event.target.value);
+  };
+
+  return {
+    isEditing,
+    selectedStatus,
+    selectedPriority,
+    dueDateValue,
+    updatedAt,
+    toggleEditMode,
+    handleSelectStatus,
+    handleSelectPriority,
+    handleDueDateChange,
+  };
+}
