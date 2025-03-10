@@ -2,6 +2,7 @@ import { FC } from "react";
 import Dropdown from "./Dropdown";
 import Button from "./Button";
 import { useTodoEdit, TodoStatus, TodoPriority } from "../utils/useTodoEdit";
+import DueDatePicker from "./DueDatePicker";
 
 interface TodoStatusObject {
   status: TodoStatus;
@@ -93,6 +94,7 @@ const ToDo: FC<TodoProps> = ({
     handleSelectPriority,
     handleDueDateChange,
   } = useTodoEdit(defaultStatus, defaultPriority, dueDate);
+
   return (
     <div className="w-72 h-auto bg-bgcolor2 text-black text-sm p-3 rounded-xl transition-all md:text-base ">
       <h2 className="text-base font-bold md:text-lg">{title}</h2>
@@ -117,9 +119,13 @@ const ToDo: FC<TodoProps> = ({
             isEditable={isEditing}
           />
         </div>
-        <p>
-          <strong>Due Date:</strong> {new Date(dueDate).toLocaleString()}
-        </p>
+        <div>
+          <strong>Due Date:</strong>
+          <DueDatePicker
+            dueDate={new Date(dueDateValue)}
+            onChange={handleDueDateChange}
+          />
+        </div>
 
         <p>
           <strong>Created At:</strong> {new Date(createdAt).toLocaleString()}

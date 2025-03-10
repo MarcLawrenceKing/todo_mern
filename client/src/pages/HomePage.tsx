@@ -40,7 +40,7 @@ const HomePage = () => {
               title="Complete Project 2"
               description="Finish ."
               status="PENDING"
-              dueDate="2025-0"
+              dueDate="2025-03-10T12:00:00"
               priority="MEDIUM"
               createdAt="202"
             />
@@ -48,7 +48,7 @@ const HomePage = () => {
               title="Complete Project 3"
               description="Finish ."
               status="ONGOING"
-              dueDate="2025-0"
+              dueDate="2025-03-10T12:00:00"
               priority="LOW"
               createdAt="202"
             />

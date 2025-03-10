@@ -33,9 +33,9 @@ export function useTodoEdit(
     setSelectedPriority(option);
   };
 
-  const handleDueDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isEditing) return;
-    setDueDateValue(event.target.value);
+  const handleDueDateChange = (date: Date | null) => {
+    if (!isEditing || !date) return;
+    setDueDateValue(date.toISOString);
   };
 
   return {
