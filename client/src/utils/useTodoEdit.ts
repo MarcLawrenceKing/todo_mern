@@ -35,7 +35,7 @@ export function useTodoEdit(
 
   const handleDueDateChange = (date: Date | null) => {
     if (!isEditing || !date) return;
-    setDueDateValue(date.toISOString);
+    setDueDateValue(date.toISOString());
   };
 
   return {

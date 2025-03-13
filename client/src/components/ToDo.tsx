@@ -119,9 +119,10 @@ const ToDo: FC<TodoProps> = ({
             isEditable={isEditing}
           />
         </div>
-        <div>
+        <div className="flex flex-row gap-2">
           <strong>Due Date:</strong>
           <DueDatePicker
+            isEditable={isEditing}
             dueDate={new Date(dueDateValue)}
             onChange={handleDueDateChange}
           />

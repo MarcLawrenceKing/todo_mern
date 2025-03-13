@@ -41,7 +41,7 @@ const Dropdown: FC<DropdownProps> = ({
           selected
             ? `${selected.bgColor} ${selected.textColor}`
             : "bg-gray-600 text-white"
-        } ${isEditable ? `hover:brightness-90` : "hover:brightness-95"} `}
+        } ${isEditable ? `hover:opacity-100` : "hover:brightness-95"} `}
       >
         {selected ? selected.label : "None"}{" "}
         {isEditable ? (
