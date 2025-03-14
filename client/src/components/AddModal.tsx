@@ -28,7 +28,9 @@ const AddModal: FC<AddModalProps> = ({ isOpen, onClose }) => {
       } backdrop-blur-lg`}
     >
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-xl font-semibold mb-4">Add New Item</h2>
+        <h2 className="text-xl font-semibold mb-4 text-primary">
+          Add New Item
+        </h2>
         <input
           type="text"
           placeholder="Title"
@@ -68,13 +70,13 @@ const AddModal: FC<AddModalProps> = ({ isOpen, onClose }) => {
         />
         <button
           onClick={handleSubmit}
-          className="w-full bg-blue-500 text-white p-2 rounded"
+          className="w-full text-white p-2 rounded bg-primary"
         >
           Add
         </button>
         <button
           onClick={onClose}
-          className="w-full bg-gray-400 text-white p-2 rounded mt-2"
+          className="w-full text-white p-2 rounded mt-2 bg-accent2"
         >
           Cancel
         </button>

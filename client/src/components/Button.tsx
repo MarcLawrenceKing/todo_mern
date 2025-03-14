@@ -17,14 +17,14 @@ const Button: FC<BtnProps> = ({
   className,
 }) => {
   const baseStyles =
-    "transition-all flex justify-center items-center gap-2 rounded-xl hover:brightness-90";
+    "transition-all flex justify-center items-center gap-2 rounded-md hover:brightness-90";
   const variantStyles = {
     primary: {
-      styles: "py-2 text-base w-48 md:w-160 md:text-lg",
+      styles: "py-2 text-base text-white w-48 md:w-160 md:text-lg",
       iconSize: 23,
     },
     secondary: {
-      styles: "py-1 text-sm md:text-base w-28 ",
+      styles: "py-1 text-sm md:text-base w-28 py-2",
       iconSize: 16,
     },
   };

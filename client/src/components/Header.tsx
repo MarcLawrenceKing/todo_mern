@@ -2,8 +2,8 @@ import FormLogo from "../assets/To Do List.png";
 const Header = () => {
   return (
     <>
-      <header className="bg-accent1 py-4">
-        <div className="flex justify-between items-center">
+      <header className="bg-accent1 shadow-2xl">
+        <div className="flex justify-between items-center py-5 ">
           <img src={FormLogo} className="h-16 w-24 block mx-auto" />
         </div>
       </header>

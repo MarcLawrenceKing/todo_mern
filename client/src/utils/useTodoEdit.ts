@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { DropdownOption } from "../components/Dropdown";
 
-export type TodoStatus = "PENDING" | "DONE" | "ONGOING";
-export type TodoPriority = "HIGH" | "MEDIUM" | "LOW";
-
 export function useTodoEdit(
   initialStatus: DropdownOption,
   initialPriority: DropdownOption,

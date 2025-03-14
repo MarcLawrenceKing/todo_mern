@@ -1,30 +1,13 @@
 import { FC } from "react";
 import Dropdown from "./Dropdown";
 import Button from "./Button";
-import { useTodoEdit, TodoStatus, TodoPriority } from "../utils/useTodoEdit";
+import { useTodoEdit } from "../utils/useTodoEdit";
+import {
+  todoPriorities,
+  todoStatuses,
+  TodoProps,
+} from "../utils/todoConstants";
 import DueDatePicker from "./DueDatePicker";
-
-interface TodoStatusObject {
-  status: TodoStatus;
-  label: string;
-  textColor: string;
-  bgColor: string;
-}
-
-interface TodoPriorityObject {
-  priority: TodoPriority;
-  label: string;
-  textColor: string;
-  bgColor: string;
-}
-interface TodoProps {
-  title: string;
-  description: string;
-  status: TodoStatus;
-  dueDate: string;
-  priority: TodoPriority;
-  createdAt: string;
-}
 
 const ToDo: FC<TodoProps> = ({
   title,
@@ -34,49 +17,6 @@ const ToDo: FC<TodoProps> = ({
   priority,
   createdAt,
 }) => {
-  const todoStatuses: TodoStatusObject[] = [
-    {
-      status: "PENDING",
-      label: "PENDING",
-      textColor: "text-high-pend",
-      bgColor: "bg-high-pend-bg",
-    },
-    {
-      status: "ONGOING",
-      label: "ONGOING",
-
-      textColor: "text-med-ongo",
-      bgColor: "bg-med-ongo-bg",
-    },
-    {
-      status: "DONE",
-      label: "DONE",
-      textColor: "text-low-done",
-      bgColor: "bg-low-done-bg",
-    },
-  ];
-
-  const todoPriorities: TodoPriorityObject[] = [
-    {
-      priority: "HIGH",
-      label: "HIGH",
-      textColor: "text-high-pend",
-      bgColor: "bg-high-pend-bg",
-    },
-    {
-      priority: "MEDIUM",
-      label: "MEDIUM",
-      textColor: "text-med-ongo",
-      bgColor: "bg-med-ongo-bg",
-    },
-    {
-      priority: "LOW",
-      label: "LOW",
-      textColor: "text-low-done",
-      bgColor: "bg-low-done-bg",
-    },
-  ];
-
   // ✅ Set default values for status & priority
   const defaultStatus =
     todoStatuses.find((s) => s.status === status) || todoStatuses[0];
@@ -96,11 +36,11 @@ const ToDo: FC<TodoProps> = ({
   } = useTodoEdit(defaultStatus, defaultPriority, dueDate);
 
   return (
-    <div className="w-72 h-auto bg-bgcolor2 text-black text-sm p-3 rounded-xl transition-all md:text-base ">
+    <div className="flex flex-col gap-2 w-72 h-auto bg-white text-black text-sm p-3 rounded-xl transition-all md:text-base ">
       <h2 className="text-base font-bold md:text-lg">{title}</h2>
       <p className="text-gray-600">{description}</p>
 
-      <div className="mt-2 text-sm">
+      <div className="mt-2 text-sm flex flex-col gap-2">
         <div>
           <strong>Status:</strong>{" "}
           <Dropdown
@@ -135,16 +75,14 @@ const ToDo: FC<TodoProps> = ({
           <strong>Updated At:</strong> {updatedAt}
         </p>
       </div>
-      <div className="grid grid-cols-2 mt-2 gap-2 justify-items-center">
+      <div className="grid grid-cols-2 mt-5 gap-2 justify-items-center">
         <Button
           label={isEditing ? "Save" : "Update"}
           iconName={isEditing ? "circle-check" : "circle-arrow-up"}
           onClick={toggleEditMode}
           variant="secondary"
           className={
-            isEditing
-              ? "text-low-done-bg bg-low-done"
-              : "text-med-ongo-bg bg-med-ongo"
+            isEditing ? "text-white bg-primary" : "text-black bg-secondary"
           }
         />
         <Button
@@ -152,7 +90,7 @@ const ToDo: FC<TodoProps> = ({
           iconName="trash-2"
           onClick={() => alert("Delete Clicked")}
           variant="secondary"
-          className="text-high-pend-bg bg-high-pend"
+          className="text-white bg-accent2"
         />
       </div>
     </div>

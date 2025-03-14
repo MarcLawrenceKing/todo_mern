@@ -11,12 +11,12 @@ const Filters = () => {
   const [openFiltersSection, setOpenFiltersSection] = useState<boolean>(false);
 
   return (
-    <div className="w-72 h-auto bg-secondary text-white p-3 hover:brightness-95 rounded-xl transition-all md:w-180 ">
+    <div className="w-72 h-auto bg-secondary text-black p-3 hover:brightness-95 rounded-xl transition-all md:w-180 ">
       <div
         className="flex flex-row justify-between items-center"
         onClick={() => setOpenFiltersSection(!openFiltersSection)}
       >
-        <p className="text-base md:text-lg"> Filters</p>
+        <p className="text-base font-bold md:text-lg"> Filters</p>
         {openFiltersSection ? (
           <DynamicIcon name="chevron-up" size={20} />
         ) : (
@@ -31,7 +31,7 @@ const Filters = () => {
               options={[
                 { value: "pending", label: "Pending" },
                 { value: "ongoing", label: "Ongoing" },
-                { value: "finished", label: "Finished" },
+                { value: "done", label: "Done" },
               ]}
               selected={selectedStatus}
               onChange={setSelectedStatus}

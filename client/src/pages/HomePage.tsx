@@ -10,17 +10,17 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col gap-5 pt-4 px-6 md:px-10">
+      <div className="bg-accent1 flex flex-col gap-5 pt-4 px-6 md:px-10">
         <div className="flex flex-row justify-between">
-          <p className="text-base text-white">Hello, User!</p>
-          <p className="text-base text-white"> Date</p>
+          <p className="text-base text-black">Hello, User!</p>
+          <p className="text-base text-black"> Date</p>
         </div>
         <div className="flex flex-col items-center gap-5">
           <Button
             label="Add To-Do"
             iconName="circle-plus"
             onClick={() => setIsAddModalOpen(true)}
-            className="text-low-done-bg bg-low-done"
+            className="text-low-done-bg bg-primary"
           />
           <AddModal
             isOpen={isAddModalOpen}

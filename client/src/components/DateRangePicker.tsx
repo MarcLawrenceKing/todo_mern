@@ -11,20 +11,20 @@ const DateRangePicker = () => {
       <div className="w-45 mb-2">
         <p className="text-sm  md:text-base">RANGE (DUE DATE)</p>
         <div className="flex flex-row justify-between items-center">
-          <p className="text-sm text-white">START DATE</p>
+          <p className="text-sm text-black">START DATE</p>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             selectsStart
             startDate={startDate}
             endDate={endDate}
-            className="border border-gray-300 rounded-md pl-1 w-23 text-white text-sm focus:ring focus:ring-blue-300"
+            className="border border-black rounded-md pl-1 w-23 text-black text-sm "
             portalId="root"
           />
         </div>
 
         <div className="flex flex-row justify-between items-center">
-          <p className="text-sm text-white">END DATE</p>
+          <p className="text-sm text-black">END DATE</p>
           <DatePicker
             selected={endDate}
             onChange={(date) => setEndDate(date)}
@@ -32,7 +32,7 @@ const DateRangePicker = () => {
             startDate={startDate}
             endDate={endDate}
             minDate={startDate || undefined}
-            className="border border-gray-300 rounded-md pl-1 w-23 text-white text-sm focus:ring focus:ring-blue-300"
+            className="border border-black rounded-md pl-1 w-23 text-black text-sm"
             portalId="root"
           />
         </div>

@@ -1,3 +1,4 @@
+import { CheckIcon } from "lucide-react";
 import { FC } from "react";
 
 interface CheckboxGroupProps {
@@ -21,12 +22,12 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
   };
 
   return (
-    <div className="flex flex-col text-sm text-white md:text-base">
+    <div className="flex flex-col text-sm text-black md:text-base">
       <p>{name}</p>
       {options.map((option) => (
         <label
           key={option.value}
-          className="flex items-center space-x-2 cursor-pointer"
+          className="flex items-center space-x-2 cursor-pointer "
         >
           <input
             type="checkbox"
@@ -37,17 +38,15 @@ const CheckboxGroup: FC<CheckboxGroupProps> = ({
             className="hidden"
           />
           <div
-            className={`w-4 h-4 border-2 flex items-center justify-center transition-colors ${
-              selected.includes(option.value)
-                ? "bg-accent2 border-accent2"
-                : "border-bgcolor"
+            className={`w-4 h-4 border-1 flex items-center justify-center transition-colors ${
+              selected.includes(option.value) ? "bg-primary" : "border-black"
             }`}
           >
             {selected.includes(option.value) && (
-              <div className="w-2 h-2 bg-accent1 rounded-sm" />
+              <CheckIcon className="w-4 h-4 text-white" />
             )}
           </div>
-          <span className="text-white">{option.label}</span>
+          <span className="text-black">{option.label}</span>
         </label>
       ))}
     </div>

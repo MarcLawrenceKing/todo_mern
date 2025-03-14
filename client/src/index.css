@@ -1,22 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: oklch(38.26% 0.1732 263.19);
-  --color-secondary: oklch(56.38% 0.1454 262.03);
+  --color-primary: oklch(58.33% 0.1178 168.22);
+  --color-secondary: oklch(87.1% 0.1781 91.77);
   --color-accent4: oklch(61.33% 0.1577 269.05);
-  --color-accent3: oklch(76.92% 0.0996 262.66);
-  --color-accent1: oklch(89.2% 0.0203 233.88);
-  --color-accent2: oklch(77.76% 0.0185 8.9);
+  --color-accent3: oklch(62.28% 0.250373 20.7428);
+  --color-accent1: oklch(96.13% 0.0211 56.13);
+  --color-accent2: oklch(66.46% 0.1877 40.98);
 
-  --color-low-done: oklch(52.42% 0.1082 148.99);
-  --color-low-done-bg: oklch(97.87% 0.0363 144.04);
-  --color-med-ongo: oklch(61.02% 0.1194 87.99);
-  --color-med-ongo-bg: oklch(97.21% 0.0556 106.29);
-  --color-high-pend: oklch(37.89% 0.1346 26.53);
-  --color-high-pend-bg: oklch(91.05% 0.0461 19.68);
-
-  --color-bgcolor: oklch(35.23% 0 0);
-  --color-bgcolor2: oklch(85.53% 0.0011 17.18);
+  --color-white: oklch(100% 0 0);
+  --collor-black: oklch(12.24% 0.0184 20.07);
 
   --breakpoint-todo3: 59.375rem;
   --breakpoint-xs: 30rem;
@@ -33,5 +26,5 @@
 
 body {
   @apply font-mono;
-  background: #242424;
+  background: oklch(96.13% 0.0211 56.13);
 }

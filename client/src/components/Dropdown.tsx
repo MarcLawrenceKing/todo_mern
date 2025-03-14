@@ -11,7 +11,7 @@ interface DropdownProps {
   options: DropdownOption[]; // Dynamic options
   onSelect: (option: DropdownOption) => void; // Callback when an option is selected
   defaultValue?: DropdownOption;
-  isEditable: boolean; //  prop to control editability
+  isEditable?: boolean; //  prop to control editability
 }
 
 const Dropdown: FC<DropdownProps> = ({

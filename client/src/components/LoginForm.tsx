@@ -13,15 +13,17 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-accent2">
-      <div className=" flex justify-center flex-col bg-accent1 p-10 rounded-lg shadow-md min-w-full min-h-screen xs:min-h-full xs:min-w-96">
+    <div className="flex items-center justify-center min-h-screen bg-accent1">
+      <div className=" flex justify-center flex-col bg-white p-10 rounded-lg shadow-md min-w-full min-h-screen xs:min-h-full xs:min-w-96">
         <img src={FormLogo} className="h-24 w-30 block mx-auto mb-4" />
-        <h2 className="text-2xl font-semibold text-center mb-3">Login</h2>
+        <h2 className="text-2xl font-semibold text-center mb-3 text-primary">
+          Login
+        </h2>
         <form onSubmit={handleSubmit} className="">
           <div className="mb-4">
             <input
               type="text"
-              className=" w-full p-2 border rounded "
+              className=" w-full p-2 border rounded border-primary"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Username"
@@ -31,7 +33,7 @@ const LoginForm = () => {
           <div className="mb-4">
             <input
               type="password"
-              className=" w-full p-2 border rounded"
+              className=" w-full p-2 border rounded border-primary "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
@@ -50,14 +52,14 @@ const LoginForm = () => {
         <div className="flex flex-col items-center gap-2">
           <a
             href="#"
-            className="text-primary text-sm hover:opacity-80 xs:text-base"
+            className="text-accent2 text-sm hover:opacity-80 xs:text-base"
           >
             Forgot Password?
           </a>
-          <p className="text-secondary text-xs"> ----------- OR ----------- </p>
+          <p className="text-primary text-xs"> ----------- OR ----------- </p>
           <button
             type="submit"
-            className=" overflow-hidden w-2/4 bg-secondary text-white p-2 rounded hover:opacity-80 text-sm xs:text-base"
+            className="text-black overflow-hidden w-full bg-secondary p-2 rounded hover:opacity-80 text-sm xs:text-base "
           >
             Register
           </button>
