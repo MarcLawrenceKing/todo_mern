@@ -37,7 +37,7 @@ const Dropdown: FC<DropdownProps> = ({
       {/* Dropdown Button */}
       <button
         onClick={() => isEditable && setIsOpen(!isOpen)}
-        className={`flex items-center justify-between w-36 px-4 rounded-lg transition ${
+        className={`flex items-center justify-between w-36 px-4 rounded-md transition ${
           selected
             ? `${selected.bgColor} ${selected.textColor}`
             : "bg-gray-600 text-white"

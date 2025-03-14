@@ -14,13 +14,15 @@ const DueDatePicker: FC<DueDatePickerProps> = ({
   isEditable,
 }) => {
   return (
-    <div className="flex items-center border border-gray-300">
+    <div className="flex items-center h-5 ">
       <DatePicker
         selected={dueDate ? new Date(dueDate) : null}
         onChange={onChange}
         showTimeSelect
         dateFormat="Pp"
-        className="pl-2 border rounded-md w-44 text-gray-700"
+        className={`pl-2 ${
+          isEditable ? "border rounded-md text-gray-700" : ""
+        } w-44 `}
         disabled={!isEditable}
       />
     </div>
