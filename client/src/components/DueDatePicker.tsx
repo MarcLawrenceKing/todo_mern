@@ -6,12 +6,14 @@ interface DueDatePickerProps {
   dueDate: Date;
   onChange: (date: Date | null) => void;
   isEditable: boolean;
+  className?: string;
 }
 
 const DueDatePicker: FC<DueDatePickerProps> = ({
   dueDate,
   onChange,
   isEditable,
+  className,
 }) => {
   return (
     <div className="flex items-center h-5 ">
@@ -22,7 +24,7 @@ const DueDatePicker: FC<DueDatePickerProps> = ({
         dateFormat="Pp"
         className={`pl-2 ${
           isEditable ? "border rounded-md text-gray-700" : ""
-        } w-44 `}
+        } w-44 ${className}`}
         disabled={!isEditable}
       />
     </div>

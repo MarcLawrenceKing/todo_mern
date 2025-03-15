@@ -1,20 +1,45 @@
 import { useState, FC } from "react";
 import { createPortal } from "react-dom";
+import {
+  todoStatuses,
+  todoPriorities,
+  TodoStatus,
+  TodoPriority,
+} from "../utils/todoConstants"; // Import your types and data
+
+import Dropdown, { DropdownOption } from "./Dropdown";
+import DueDatePicker from "./DueDatePicker";
 
 interface AddModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSave: (todo: {
+    title: string;
+    description: string;
+    status: TodoStatus;
+    priority: TodoPriority;
+    dueDate: string;
+  }) => void;
 }
 
 const AddModal: FC<AddModalProps> = ({ isOpen, onClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("Pending");
-  const [priority, setPriority] = useState("Medium");
-  const [dueDate, setDueDate] = useState<string>("");
+  const [selectedStatus, setSelectedStatus] = useState<DropdownOption | null>(
+    todoStatuses[0]
+  );
+  const [selectedPriority, setSelectedPriority] =
+    useState<DropdownOption | null>(todoPriorities[1]);
+  const [dueDate, setDueDate] = useState<Date | null>(new Date());
 
   const handleSubmit = () => {
-    const newItem = { title, description, status, priority, dueDate };
+    const newItem = {
+      title,
+      description,
+      selectedStatus,
+      selectedPriority,
+      dueDate,
+    };
     console.log("New Item:", newItem);
     onClose();
   };
@@ -44,30 +69,33 @@ const AddModal: FC<AddModalProps> = ({ isOpen, onClose }) => {
           onChange={(e) => setDescription(e.target.value)}
           className="w-full p-2 border rounded mb-3"
         ></textarea>
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          className="w-full p-2 border rounded mb-3"
-        >
-          <option value="Pending">Pending</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-        </select>
-        <select
-          value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-          className="w-full p-2 border rounded mb-3"
-        >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-        <input
-          type="datetime-local"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-          className="w-full p-2 border rounded mb-3"
-        />
+        <div className="mb-3 flex flex-row gap-2">
+          <label className="block font-semibold mb-1">Status</label>
+          <Dropdown
+            options={todoStatuses}
+            onSelect={setSelectedStatus}
+            defaultValue={todoStatuses[0]}
+            isEditable={true}
+          />
+        </div>
+        <div className="mb-3 flex flex-row gap-2">
+          <label className="block font-semibold mb-1">Priority</label>
+          <Dropdown
+            options={todoPriorities}
+            onSelect={setSelectedPriority}
+            defaultValue={todoPriorities[1]}
+            isEditable={true}
+          />
+        </div>
+        <div className="mb-3 flex flex-row gap-2">
+          <label className="block font-semibold mb-1">Due Date</label>
+          <DueDatePicker
+            dueDate={dueDate || new Date()}
+            onChange={setDueDate}
+            isEditable={true}
+            className={"w-50"}
+          />
+        </div>
         <button
           onClick={handleSubmit}
           className="w-full text-white p-2 rounded bg-primary"
