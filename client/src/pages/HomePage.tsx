@@ -37,10 +37,18 @@ const HomePage = () => {
             onSave={handleSave}
           />
           <Filters />
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 todo3:grid-cols-3">
-            {todos.map((todo, index) => (
-              <ToDo key={index} {...todo} />
-            ))}
+          <div
+            className={`grid grid-cols-1 ${
+              todos.length > 0 ? "gap-5 md:grid-cols-2 todo3:grid-cols-3" : ""
+            }`}
+          >
+            {todos.length > 0 ? (
+              todos.map((todo, index) => <ToDo key={index} {...todo} />)
+            ) : (
+              <p className="bg-accent2 rounded-xl p-5 text-white text-sm md:text-base md:px-50">
+                Your ToDo list is empty!
+              </p>
+            )}
           </div>
         </div>
       </div>
