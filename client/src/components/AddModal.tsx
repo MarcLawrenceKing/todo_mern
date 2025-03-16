@@ -19,10 +19,11 @@ interface AddModalProps {
     status: TodoStatus;
     priority: TodoPriority;
     dueDate: string;
+    createdAt: string;
   }) => void;
 }
 
-const AddModal: FC<AddModalProps> = ({ isOpen, onClose }) => {
+const AddModal: FC<AddModalProps> = ({ isOpen, onClose, onSave }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<DropdownOption | null>(
@@ -33,14 +34,20 @@ const AddModal: FC<AddModalProps> = ({ isOpen, onClose }) => {
   const [dueDate, setDueDate] = useState<Date | null>(new Date());
 
   const handleSubmit = () => {
+    if (!title.trim() || !description.trim()) {
+      alert("Title and Description are required");
+      return;
+    }
     const newItem = {
       title,
       description,
-      selectedStatus,
-      selectedPriority,
-      dueDate,
+      status: selectedStatus?.label as TodoStatus,
+      priority: selectedPriority?.label as TodoPriority, // Ensure correct type
+      dueDate: dueDate ? dueDate.toISOString() : new Date().toISOString(), // Convert Date to string
+      createdAt: new Date().toISOString(), // Set current timestamp
     };
     console.log("New Item:", newItem);
+    onSave(newItem);
     onClose();
   };
 

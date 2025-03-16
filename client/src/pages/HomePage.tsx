@@ -4,9 +4,18 @@ import Filters from "../components/Filters";
 import ToDo from "../components/ToDo";
 import { useState } from "react";
 import AddModal from "../components/AddModal";
+import { TodoProps } from "../utils/todoConstants";
 
 const HomePage = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  //creation of todo component on save
+  const [todos, setTodos] = useState<TodoProps[]>([]);
+
+  const handleSave = (newTodo: TodoProps) => {
+    setTodos([...todos, newTodo]); // add new todo to state
+    setIsAddModalOpen(false); //close modal
+  };
   return (
     <>
       <Header />
@@ -25,33 +34,13 @@ const HomePage = () => {
           <AddModal
             isOpen={isAddModalOpen}
             onClose={() => setIsAddModalOpen(false)}
+            onSave={handleSave}
           />
           <Filters />
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 todo3:grid-cols-3">
-            <ToDo
-              title="Complete Project 1"
-              description="Finish the React to-do app by end of the week."
-              status="DONE"
-              dueDate="2025-03-10T12:00:00"
-              priority="HIGH"
-              createdAt="2025-03-06T10:00:00"
-            />
-            <ToDo
-              title="Complete Project 2"
-              description="Finish ."
-              status="PENDING"
-              dueDate="2025-03-10T12:00:00"
-              priority="MEDIUM"
-              createdAt="202"
-            />
-            <ToDo
-              title="Complete Project 3"
-              description="Finish ."
-              status="ONGOING"
-              dueDate="2025-03-10T12:00:00"
-              priority="LOW"
-              createdAt="202"
-            />
+            {todos.map((todo, index) => (
+              <ToDo key={index} {...todo} />
+            ))}
           </div>
         </div>
       </div>
