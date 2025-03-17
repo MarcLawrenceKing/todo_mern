@@ -4,7 +4,8 @@ import { DropdownOption } from "../components/Dropdown";
 export function useTodoEdit(
   initialStatus: DropdownOption,
   initialPriority: DropdownOption,
-  initialDueDate: string
+  initialDueDate: string,
+  onDelete: () => void
 ) {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState(initialStatus);
@@ -35,6 +36,12 @@ export function useTodoEdit(
     setDueDateValue(date.toISOString());
   };
 
+  const handleDelete = () => {
+    if (onDelete) {
+      onDelete(); // ✅ Call the delete function if it exists
+    }
+  }
+
   return {
     isEditing,
     selectedStatus,
@@ -45,5 +52,6 @@ export function useTodoEdit(
     handleSelectStatus,
     handleSelectPriority,
     handleDueDateChange,
+    handleDelete
   };
 }

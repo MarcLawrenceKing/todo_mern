@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState, FC, useEffect } from "react";
 import { createPortal } from "react-dom";
 import {
   todoStatuses,
@@ -32,6 +32,17 @@ const AddModal: FC<AddModalProps> = ({ isOpen, onClose, onSave }) => {
   const [selectedPriority, setSelectedPriority] =
     useState<DropdownOption | null>(todoPriorities[1]);
   const [dueDate, setDueDate] = useState<Date | null>(new Date());
+
+  // resets the selected value whenever add modal is opened
+  useEffect(() => {
+    if (isOpen) {
+      setTitle("");
+      setDescription("");
+      setSelectedStatus(todoStatuses[0]);
+      setSelectedPriority(todoPriorities[1]);
+      setDueDate(new Date());
+    }
+  }, [isOpen]);
 
   const handleSubmit = () => {
     if (!title.trim() || !description.trim()) {

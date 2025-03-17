@@ -16,10 +16,12 @@ const ToDo: FC<TodoProps> = ({
   dueDate,
   priority,
   createdAt,
+  onDelete = () => {},
 }) => {
   // ✅ Set default values for status & priority
   const defaultStatus =
     todoStatuses.find((s) => s.status === status) || todoStatuses[0];
+
   const defaultPriority =
     todoPriorities.find((p) => p.priority === priority) || todoPriorities[0];
 
@@ -33,7 +35,8 @@ const ToDo: FC<TodoProps> = ({
     handleSelectStatus,
     handleSelectPriority,
     handleDueDateChange,
-  } = useTodoEdit(defaultStatus, defaultPriority, dueDate);
+    handleDelete,
+  } = useTodoEdit(defaultStatus, defaultPriority, dueDate, onDelete);
 
   return (
     <div className="flex flex-col gap-2 w-72 h-auto bg-white text-black text-sm p-3 rounded-xl transition-all md:text-base ">
@@ -88,7 +91,7 @@ const ToDo: FC<TodoProps> = ({
         <Button
           label="Delete"
           iconName="trash-2"
-          onClick={() => alert("Delete Clicked")}
+          onClick={handleDelete}
           variant="secondary"
           className="text-white bg-accent2"
         />

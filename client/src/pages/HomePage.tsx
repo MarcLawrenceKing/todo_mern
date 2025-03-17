@@ -16,6 +16,10 @@ const HomePage = () => {
     setTodos([...todos, newTodo]); // add new todo to state
     setIsAddModalOpen(false); //close modal
   };
+
+  const handleDelete = (index: number) => {
+    setTodos((prevTodos) => prevTodos.filter((_, i) => i !== index));
+  };
   return (
     <>
       <Header />
@@ -33,7 +37,9 @@ const HomePage = () => {
           />
           <AddModal
             isOpen={isAddModalOpen}
-            onClose={() => setIsAddModalOpen(false)}
+            onClose={() => {
+              setIsAddModalOpen(false);
+            }}
             onSave={handleSave}
           />
           <Filters />
@@ -43,7 +49,13 @@ const HomePage = () => {
             }`}
           >
             {todos.length > 0 ? (
-              todos.map((todo, index) => <ToDo key={index} {...todo} />)
+              todos.map((todo, index) => (
+                <ToDo
+                  key={index}
+                  {...todo}
+                  onDelete={() => handleDelete(index)}
+                />
+              ))
             ) : (
               <p className="bg-accent2 rounded-xl p-5 text-white text-sm md:text-base md:px-50">
                 Your ToDo list is empty!
