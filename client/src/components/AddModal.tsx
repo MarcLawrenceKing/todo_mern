@@ -69,9 +69,7 @@ const AddModal: FC<AddModalProps> = ({ isOpen, onClose, onSave }) => {
 
   return createPortal(
     <div
-      className={`fixed inset-0 flex items-center justify-center z-3 ${
-        isOpen ? "block" : "hidden"
-      } backdrop-blur-lg`}
+      className={`fixed inset-0 flex items-center justify-center z-3 backdrop-blur-lg`}
     >
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-xl font-semibold mb-4 text-primary">

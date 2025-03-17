@@ -35,8 +35,7 @@ const ToDo: FC<TodoProps> = ({
     handleSelectStatus,
     handleSelectPriority,
     handleDueDateChange,
-    handleDelete,
-  } = useTodoEdit(defaultStatus, defaultPriority, dueDate, onDelete);
+  } = useTodoEdit(defaultStatus, defaultPriority, dueDate);
 
   return (
     <div className="flex flex-col gap-2 w-72 h-auto bg-white text-black text-sm p-3 rounded-xl transition-all md:text-base ">
@@ -91,7 +90,7 @@ const ToDo: FC<TodoProps> = ({
         <Button
           label="Delete"
           iconName="trash-2"
-          onClick={handleDelete}
+          onClick={onDelete}
           variant="secondary"
           className="text-white bg-accent2"
         />

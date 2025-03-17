@@ -6,21 +6,37 @@ import { useState } from "react";
 import AddModal from "../components/AddModal";
 import { TodoProps } from "../utils/todoConstants";
 import { v4 as uuidv4 } from "uuid";
+import DeleteModal from "../components/DeleteModal";
 
 const HomePage = () => {
+  // add modal
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [todos, setTodos] = useState<TodoProps[]>([]); // creation of to do
 
-  //creation of todo component on save
-  const [todos, setTodos] = useState<TodoProps[]>([]);
+  // delete modal
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [todoToDelete, setTodoToDelete] = useState<string | null>(null);
 
   const handleSave = (newTodo: TodoProps) => {
     setTodos([...todos, { ...newTodo, id: uuidv4() }]); // add new todo to state
     setIsAddModalOpen(false); //close modal
   };
 
-  const handleDelete = (id: string) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+  const confirmDelete = (id: string) => {
+    setTodoToDelete(id);
+    setIsDeleteModalOpen(true);
   };
+
+  const handleDelete = () => {
+    if (todoToDelete) {
+      setTodos((prevTodos) =>
+        prevTodos.filter((todo) => todo.id !== todoToDelete)
+      );
+      setIsDeleteModalOpen(false);
+      setTodoToDelete(null);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -54,7 +70,7 @@ const HomePage = () => {
                 <ToDo
                   key={todo.id}
                   {...todo}
-                  onDelete={() => handleDelete(todo.id)}
+                  onDelete={() => confirmDelete(todo.id)}
                 />
               ))
             ) : (
@@ -64,6 +80,11 @@ const HomePage = () => {
             )}
           </div>
         </div>
+        <DeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleDelete}
+        />
       </div>
     </>
   );
