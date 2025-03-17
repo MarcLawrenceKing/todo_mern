@@ -58,6 +58,7 @@ export const todoPriorities: TodoPriorityObject[] = [
 ];
 
 export interface TodoProps {
+  id: string;
   title: string;
   description: string;
   status: TodoStatus;

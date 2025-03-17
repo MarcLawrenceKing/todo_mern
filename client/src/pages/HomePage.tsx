@@ -5,6 +5,7 @@ import ToDo from "../components/ToDo";
 import { useState } from "react";
 import AddModal from "../components/AddModal";
 import { TodoProps } from "../utils/todoConstants";
+import { v4 as uuidv4 } from "uuid";
 
 const HomePage = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
@@ -13,12 +14,12 @@ const HomePage = () => {
   const [todos, setTodos] = useState<TodoProps[]>([]);
 
   const handleSave = (newTodo: TodoProps) => {
-    setTodos([...todos, newTodo]); // add new todo to state
+    setTodos([...todos, { ...newTodo, id: uuidv4() }]); // add new todo to state
     setIsAddModalOpen(false); //close modal
   };
 
-  const handleDelete = (index: number) => {
-    setTodos((prevTodos) => prevTodos.filter((_, i) => i !== index));
+  const handleDelete = (id: string) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
   };
   return (
     <>
@@ -49,11 +50,11 @@ const HomePage = () => {
             }`}
           >
             {todos.length > 0 ? (
-              todos.map((todo, index) => (
+              todos.map((todo) => (
                 <ToDo
-                  key={index}
+                  key={todo.id}
                   {...todo}
-                  onDelete={() => handleDelete(index)}
+                  onDelete={() => handleDelete(todo.id)}
                 />
               ))
             ) : (

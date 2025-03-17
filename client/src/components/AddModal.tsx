@@ -9,11 +9,13 @@ import {
 
 import Dropdown, { DropdownOption } from "./Dropdown";
 import DueDatePicker from "./DueDatePicker";
+import { v4 as uuidv4 } from "uuid";
 
 interface AddModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (todo: {
+    id: string;
     title: string;
     description: string;
     status: TodoStatus;
@@ -50,6 +52,7 @@ const AddModal: FC<AddModalProps> = ({ isOpen, onClose, onSave }) => {
       return;
     }
     const newItem = {
+      id: uuidv4(),
       title,
       description,
       status: selectedStatus?.label as TodoStatus,
