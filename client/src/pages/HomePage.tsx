@@ -7,11 +7,12 @@ import AddModal from "../components/AddModal";
 import { TodoProps } from "../utils/todoConstants";
 import { v4 as uuidv4 } from "uuid";
 import DeleteModal from "../components/DeleteModal";
+import { useLocalStorage } from "usehooks-ts";
 
 const HomePage = () => {
   // add modal
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [todos, setTodos] = useState<TodoProps[]>([]); // creation of to do
+  const [todos, setTodos] = useLocalStorage<TodoProps[]>("todos", []); // creation of to do
 
   // delete modal
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

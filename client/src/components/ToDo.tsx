@@ -38,7 +38,7 @@ const ToDo: FC<TodoProps> = ({
   } = useTodoEdit(defaultStatus, defaultPriority, dueDate);
 
   return (
-    <div className="flex flex-col gap-2 w-72 h-auto bg-white text-black text-sm p-3 rounded-xl transition-all md:text-base ">
+    <div className="flex flex-col gap-2 w-72 h-auto bg-white text-black shadow text-sm p-4 rounded-xl transition-all md:text-base ">
       <h2 className="text-base font-bold md:text-lg">{title}</h2>
       <p className="text-gray-600">{description}</p>
 
