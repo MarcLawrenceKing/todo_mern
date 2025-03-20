@@ -71,6 +71,8 @@ const HomePage = () => {
                 <ToDo
                   key={todo.id}
                   {...todo}
+                  todos={todos} // ✅ Pass todos
+                  setTodos={setTodos} // ✅ Pass setTodos
                   onDelete={() => confirmDelete(todo.id)}
                 />
               ))

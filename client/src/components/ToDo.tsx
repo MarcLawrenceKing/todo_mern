@@ -9,7 +9,13 @@ import {
 } from "../utils/todoConstants";
 import DueDatePicker from "./DueDatePicker";
 
-const ToDo: FC<TodoProps> = ({
+interface ToDoComponentProps extends TodoProps {
+  todos: TodoProps[]; // ✅ Receive todos from HomePage
+  setTodos: (todos: TodoProps[]) => void; // ✅ Receive setTodos from HomePage
+}
+
+const ToDo: FC<ToDoComponentProps> = ({
+  id,
   title,
   description,
   status,
@@ -17,6 +23,8 @@ const ToDo: FC<TodoProps> = ({
   priority,
   createdAt,
   onDelete = () => {},
+  todos,
+  setTodos, // ✅ Use setTodos from HomePage
 }) => {
   // ✅ Set default values for status & priority
   const defaultStatus =
@@ -81,7 +89,7 @@ const ToDo: FC<TodoProps> = ({
         <Button
           label={isEditing ? "Save" : "Update"}
           iconName={isEditing ? "circle-check" : "circle-arrow-up"}
-          onClick={toggleEditMode}
+          onClick={() => toggleEditMode(todos, setTodos, id)}
           variant="secondary"
           className={
             isEditing ? "text-white bg-primary" : "text-black bg-secondary"
