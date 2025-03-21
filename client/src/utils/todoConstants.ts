@@ -65,5 +65,6 @@ export interface TodoProps {
   dueDate: string;
   priority: TodoPriority;
   createdAt: string;
+  updatedAt: string;
   onDelete?: () => void
 }

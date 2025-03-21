@@ -22,6 +22,7 @@ const ToDo: FC<ToDoComponentProps> = ({
   dueDate,
   priority,
   createdAt,
+  updatedAt,
   onDelete = () => {},
   todos,
   setTodos, // ✅ Use setTodos from HomePage
@@ -38,13 +39,30 @@ const ToDo: FC<ToDoComponentProps> = ({
     selectedStatus,
     selectedPriority,
     dueDateValue,
-    updatedAt,
     toggleEditMode,
     handleSelectStatus,
     handleSelectPriority,
     handleDueDateChange,
   } = useTodoEdit(defaultStatus, defaultPriority, dueDate);
 
+  const handleSave = () => {
+    if (isEditing) {
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id
+            ? {
+                ...todo,
+                status: selectedStatus.label as TodoProps["status"],
+                priority: selectedPriority.label as TodoProps["priority"],
+                dueDate: dueDateValue,
+                updatedAt: new Date().toLocaleString(), // ✅ Updates only the edited todo
+              }
+            : todo
+        )
+      );
+    }
+    toggleEditMode();
+  };
   return (
     <div className="flex flex-col gap-2 w-72 h-auto bg-white text-black shadow text-sm p-4 rounded-xl transition-all md:text-base ">
       <h2 className="text-base font-bold md:text-lg">{title}</h2>
@@ -89,7 +107,7 @@ const ToDo: FC<ToDoComponentProps> = ({
         <Button
           label={isEditing ? "Save" : "Update"}
           iconName={isEditing ? "circle-check" : "circle-arrow-up"}
-          onClick={() => toggleEditMode(todos, setTodos, id)}
+          onClick={handleSave}
           variant="secondary"
           className={
             isEditing ? "text-white bg-primary" : "text-black bg-secondary"
