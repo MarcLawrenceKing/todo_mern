@@ -53,14 +53,14 @@ const HomePage = () => {
             onClick={() => setIsAddModalOpen(true)}
             className="text-low-done-bg bg-primary"
           />
-          <AddModal
+          {/* <AddModal
             isOpen={isAddModalOpen}
             onClose={() => {
               setIsAddModalOpen(false);
             }}
             onSave={handleSave}
-          />
-          <Filters />
+          /> */}
+          {/* <Filters /> */}
           <div
             className={`grid grid-cols-1 ${
               todos.length > 0 ? "gap-5 md:grid-cols-2 todo3:grid-cols-3" : ""
