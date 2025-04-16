@@ -8,6 +8,10 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+const todoRoutes = require('./routes/todoRoutes')
+
+app.use('/api/todo', todoRoutes);
+
 // app.get('/get', (req, res) => {
 //   TestTodoModel.find()
 //   .then(result => res.json(result))
@@ -37,18 +41,6 @@ app.use(express.json())
 //   .catch(err => res.json(err))
 // })
 
-app.post('/add', (req, res) => {
-  const { title, description, dueDate, status, priority } = req.body;
-  TodoModel.create({
-    title,
-    description,
-    dueDate,
-    status,
-    priority
-  })
-  .then(result => res.json(result)) 
-  .catch(err => console.log(err))
-})
 
 mongoose.connect('mongodb://127.0.0.1:27017/test') //automatically create test database
 

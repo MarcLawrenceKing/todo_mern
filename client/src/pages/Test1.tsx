@@ -10,12 +10,20 @@ import TestAddModal from "../components/TestAddModal";
 
 interface Todo {
   _id: string;
-  task: string;
-  done: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  status: string;
+  priority: string;
+  createdAt: string;
+  deletedAt: string;
 }
 
 const Test1 = () => {
   const [open, setOpen] = useState(false);
+
+  const [todos, setTodos] = useState<Todo[]>([]);
+
   return (
     <div className="flex justify-center items-center">
       <button
