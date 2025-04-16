@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const TodoModel = require('../models/Todo')
 
-router.post('/add', (req, res) => {
+router.post('/', (req, res) => {
   const { title, description, dueDate, status, priority } = req.body;
   TodoModel.create({
     title,
@@ -13,6 +13,12 @@ router.post('/add', (req, res) => {
   })
   .then(result => res.json(result)) 
   .catch(err => console.log(err))
+})
+
+router.get('/', (req, res) => {
+  TodoModel.find()
+  .then(result => res.json(result))
+  .catch(err => res.json(err))
 })
 
 module.exports = router;

@@ -16,7 +16,7 @@ interface Todo {
   status: string;
   priority: string;
   createdAt: string;
-  deletedAt: string;
+  updatedAt: string;
 }
 
 const Test1 = () => {
@@ -24,8 +24,14 @@ const Test1 = () => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/todo")
+      .then((result) => setTodos(result.data))
+      .catch((err) => console.log(err));
+  }, []);
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex flex-col justify-center items-center">
       <button
         onClick={() => setOpen(true)}
         className="p-2 bg-blue-600 text-white rounded"
@@ -33,6 +39,23 @@ const Test1 = () => {
         + Add
       </button>
       <TestAddModal isOpen={open} onClose={() => setOpen(false)} />
+      {todos.length === 0 ? (
+        <div>
+          <p>Walang laman!!</p>
+        </div>
+      ) : (
+        todos.map((todo) => (
+          <div key={todo._id} className="border p-2">
+            <div className="">{todo.title}</div>
+            <div className="">{todo.description}</div>
+            <div className="">{todo.dueDate}</div>
+            <div className="">{todo.status}</div>
+            <div className="">{todo.priority}</div>
+            <div className="">{todo.createdAt}</div>
+            <div className="">{todo.updatedAt}</div>
+          </div>
+        ))
+      )}
     </div>
   );
 };

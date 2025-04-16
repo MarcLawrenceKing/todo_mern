@@ -19,7 +19,7 @@ const TestAddModal = ({
 
   const handleAdd = () => {
     axios
-      .post("http://localhost:3001/api/todo/add", {
+      .post("http://localhost:3001/api/todo", {
         title,
         description,
         status,
