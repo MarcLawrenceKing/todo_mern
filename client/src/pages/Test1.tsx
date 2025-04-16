@@ -53,6 +53,10 @@ const Test1 = () => {
             <div className="">{todo.priority}</div>
             <div className="">{todo.createdAt}</div>
             <div className="">{todo.updatedAt}</div>
+            <div className="flex justify-center gap-10 mt-5">
+              <button className="bg-yellow-500 p-2">Update</button>{" "}
+              <button className="bg-red-500 p-2 text-white">Delete</button>
+            </div>
           </div>
         ))
       )}

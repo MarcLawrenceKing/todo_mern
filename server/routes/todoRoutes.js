@@ -21,4 +21,14 @@ router.get('/', (req, res) => {
   .catch(err => res.json(err))
 })
 
+router.put('/:id', (req, res) => {
+  const {id} = req.params;
+  // Destructure the body to exclude immutable fields
+  const { _id, createdAt, updatedAt, __v, ...updateData } = req.body;
+
+  TodoModel.findByIdAndUpdate(id, updateData, {new:true})
+  .then(result => res.json(result))
+  .catch(err => res.json(err))
+})
+
 module.exports = router;
