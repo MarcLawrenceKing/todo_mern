@@ -31,4 +31,11 @@ router.put('/:id', (req, res) => {
   .catch(err => res.json(err))
 })
 
+router.delete('/:id', (req, res) => {
+  const {id} = req.params;
+  TodoModel.findByIdAndDelete(id)
+  .then(result => res.json(result))
+  .catch(err => res.json(err))
+})
+
 module.exports = router;

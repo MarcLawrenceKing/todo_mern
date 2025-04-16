@@ -7,6 +7,7 @@ import {
   BsFillTrashFill,
 } from "react-icons/bs";
 import TestAddModal from "../components/TestAddModal";
+import TestTodo from "../components/TestTodo";
 
 interface Todo {
   _id: string;
@@ -24,12 +25,37 @@ const Test1 = () => {
 
   const [todos, setTodos] = useState<Todo[]>([]);
 
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValues, setEditValues] = useState({
+    title: "",
+    dueDate: "",
+    status: "",
+  });
+
   useEffect(() => {
     axios
       .get("http://localhost:3001/api/todo")
       .then((result) => setTodos(result.data))
       .catch((err) => console.log(err));
   }, []);
+
+  const handleDelete = (id: string) => {
+    axios
+      .delete("http://localhost:3001/api/todo/" + id)
+      .then(() => {
+        location.reload();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleEdit = (id: string) => {
+    axios
+      .put("http://localhost:3001/api/todo/" + id, editValues)
+      .then(() => {
+        location.reload();
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="flex flex-col justify-center items-center">
       <button
@@ -45,19 +71,16 @@ const Test1 = () => {
         </div>
       ) : (
         todos.map((todo) => (
-          <div key={todo._id} className="border p-2">
-            <div className="">{todo.title}</div>
-            <div className="">{todo.description}</div>
-            <div className="">{todo.dueDate}</div>
-            <div className="">{todo.status}</div>
-            <div className="">{todo.priority}</div>
-            <div className="">{todo.createdAt}</div>
-            <div className="">{todo.updatedAt}</div>
-            <div className="flex justify-center gap-10 mt-5">
-              <button className="bg-yellow-500 p-2">Update</button>{" "}
-              <button className="bg-red-500 p-2 text-white">Delete</button>
-            </div>
-          </div>
+          <TestTodo
+            key={todo._id}
+            todo={todo}
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
+            editingId={editingId}
+            setEditingId={setEditingId}
+            editValues={editValues}
+            setEditValues={setEditValues}
+          />
         ))
       )}
     </div>
