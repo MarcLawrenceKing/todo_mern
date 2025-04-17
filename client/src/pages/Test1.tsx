@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import TestCreate from "../components/TestCreate";
 import axios from "axios";
-import {
-  BsCircleFill,
-  BsFillCheckCircleFill,
-  BsFillTrashFill,
-} from "react-icons/bs";
+
 import TestAddModal from "../components/TestAddModal";
 import TestTodo from "../components/TestTodo";
+
+import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
 
 interface Todo {
   _id: string;
@@ -57,33 +56,39 @@ const Test1 = () => {
       .catch((err) => console.log(err));
   };
   return (
-    <div className="flex flex-col justify-center items-center">
-      <button
-        onClick={() => setOpen(true)}
-        className="p-2 bg-blue-600 text-white rounded"
-      >
-        + Add
-      </button>
-      <TestAddModal isOpen={open} onClose={() => setOpen(false)} />
-      {todos.length === 0 ? (
-        <div>
-          <p>Walang laman!!</p>
+    <>
+      <Header />
+      <div className="flex flex-col justify-center items-center py-10">
+        <Button onClick={() => setOpen(true)} size="lg" className="mb-10">
+          <p className="text-xl">+ Add To Do</p>
+        </Button>
+        <TestAddModal isOpen={open} onClose={() => setOpen(false)} />
+        <div
+          className={`grid grid-cols-1 ${
+            todos.length > 0 ? "gap-5 md:grid-cols-2 todo3:grid-cols-3" : ""
+          }`}
+        >
+          {todos.length === 0 ? (
+            <div>
+              <p>Walang laman!!</p>
+            </div>
+          ) : (
+            todos.map((todo) => (
+              <TestTodo
+                key={todo._id}
+                todo={todo}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+                editingId={editingId}
+                setEditingId={setEditingId}
+                editValues={editValues}
+                setEditValues={setEditValues}
+              />
+            ))
+          )}
         </div>
-      ) : (
-        todos.map((todo) => (
-          <TestTodo
-            key={todo._id}
-            todo={todo}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            editingId={editingId}
-            setEditingId={setEditingId}
-            editValues={editValues}
-            setEditValues={setEditValues}
-          />
-        ))
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 

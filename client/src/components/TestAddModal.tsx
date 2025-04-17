@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 
+import { Button } from "@/components/ui/button";
+
 const TestAddModal = ({
   isOpen,
   onClose,
@@ -96,15 +98,10 @@ const TestAddModal = ({
         </select>
 
         <div className="flex justify-end gap-2">
-          <button onClick={onClose} className="bg-gray-300 px-3 py-1 rounded">
+          <Button onClick={onClose} variant="destructive">
             Cancel
-          </button>
-          <button
-            className="bg-blue-500 text-white px-3 py-1 rounded"
-            onClick={handleAdd}
-          >
-            Add
-          </button>
+          </Button>
+          <Button onClick={handleAdd}>Add</Button>
         </div>
       </div>
     </div>,

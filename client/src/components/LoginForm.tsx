@@ -44,7 +44,7 @@ const LoginForm = () => {
           <button
             onClick={() => navigate("/home")}
             type="submit"
-            className=" w-full overflow-hidden bg-primary text-white p-2 rounded hover:opacity-80 mb-6 text-base xs:text-lg "
+            className=" w-full overflow-hidden bg-green text-white p-2 rounded hover:opacity-80 mb-6 text-base xs:text-lg "
           >
             Login
           </button>
@@ -59,7 +59,7 @@ const LoginForm = () => {
           <p className="text-primary text-xs"> ----------- OR ----------- </p>
           <button
             type="submit"
-            className="text-black overflow-hidden w-full bg-secondary p-2 rounded hover:opacity-80 text-sm xs:text-base "
+            className="text-black overflow-hidden w-full bg-yellow p-2 rounded hover:opacity-80 text-sm xs:text-base "
           >
             Register
           </button>
