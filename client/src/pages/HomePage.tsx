@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import TestCreate from "../components/Create";
 import axios from "axios";
 
-import TestAddModal from "../components/AddModal";
-import TestTodo from "../components/TodoComponent";
+import AddModal from "../components/AddModal";
+import TodoComponent from "../components/TodoComponent";
 
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
@@ -62,7 +61,7 @@ const HomePage = () => {
         <Button onClick={() => setOpen(true)} size="lg" className="mb-10">
           <p className="text-xl">+ Add To Do</p>
         </Button>
-        <TestAddModal isOpen={open} onClose={() => setOpen(false)} />
+        <AddModal isOpen={open} onClose={() => setOpen(false)} />
         <div
           className={`grid grid-cols-1 ${
             todos.length > 0 ? "gap-5 md:grid-cols-2 todo3:grid-cols-3" : ""
@@ -74,7 +73,7 @@ const HomePage = () => {
             </div>
           ) : (
             todos.map((todo) => (
-              <TestTodo
+              <TodoComponent
                 key={todo._id}
                 todo={todo}
                 handleDelete={handleDelete}
