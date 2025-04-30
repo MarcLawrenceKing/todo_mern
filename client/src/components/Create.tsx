@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const TestCreate = () => {
+const Create = () => {
   const [task, setTask] = useState<string>("");
   const handleAdd = () => {
     axios
@@ -29,4 +29,4 @@ const TestCreate = () => {
   );
 };
 
-export default TestCreate;
+export default Create;

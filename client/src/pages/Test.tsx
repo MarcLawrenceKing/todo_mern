@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import TestCreate from "../components/TestCreate";
+import TestCreate from "../components/Create";
 import axios from "axios";
 import {
   BsCircleFill,

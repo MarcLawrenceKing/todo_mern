@@ -1,93 +1,92 @@
-import Button from "../components/Button";
-import Header from "../components/Header";
-import Filters from "../components/Filters";
-import ToDo from "../components/ToDo";
-import { useState } from "react";
-import AddModal from "../components/AddModal";
-import { TodoProps } from "../utils/todoConstants";
-import { v4 as uuidv4 } from "uuid";
-import DeleteModal from "../components/DeleteModal";
-import { useLocalStorage } from "usehooks-ts";
+import { useEffect, useState } from "react";
+import TestCreate from "../components/Create";
+import axios from "axios";
+
+import TestAddModal from "../components/AddModal";
+import TestTodo from "../components/TodoComponent";
+
+import { Button } from "@/components/ui/button";
+import Header from "@/components/Header";
+
+interface Todo {
+  _id: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  status: string;
+  priority: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 const HomePage = () => {
-  // add modal
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [todos, setTodos] = useLocalStorage<TodoProps[]>("todos", []); // creation of to do
+  const [open, setOpen] = useState(false);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
-  // delete modal
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [todoToDelete, setTodoToDelete] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValues, setEditValues] = useState({
+    title: "",
+    dueDate: "",
+    status: "",
+  });
 
-  const handleSave = (newTodo: TodoProps) => {
-    setTodos([...todos, { ...newTodo, id: uuidv4() }]); // add new todo to state
-    setIsAddModalOpen(false); //close modal
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/todo")
+      .then((result) => setTodos(result.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleDelete = (id: string) => {
+    axios
+      .delete("http://localhost:3001/api/todo/" + id)
+      .then(() => {
+        location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
-  const confirmDelete = (id: string) => {
-    setTodoToDelete(id);
-    setIsDeleteModalOpen(true);
-  };
-
-  const handleDelete = () => {
-    if (todoToDelete) {
-      setTodos((prevTodos) =>
-        prevTodos.filter((todo) => todo.id !== todoToDelete)
-      );
-      setIsDeleteModalOpen(false);
-      setTodoToDelete(null);
-    }
+  const handleEdit = (id: string) => {
+    axios
+      .put("http://localhost:3001/api/todo/" + id, editValues)
+      .then(() => {
+        location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
     <>
       <Header />
-      <div className="bg-accent1 flex flex-col gap-5 pt-4 px-6 md:px-10">
-        <div className="flex flex-row justify-between">
-          <p className="text-base text-black">Hello, User!</p>
-          <p className="text-base text-black"> Date</p>
+      <div className="flex flex-col justify-center items-center py-10">
+        <Button onClick={() => setOpen(true)} size="lg" className="mb-10">
+          <p className="text-xl">+ Add To Do</p>
+        </Button>
+        <TestAddModal isOpen={open} onClose={() => setOpen(false)} />
+        <div
+          className={`grid grid-cols-1 ${
+            todos.length > 0 ? "gap-5 md:grid-cols-2 todo3:grid-cols-3" : ""
+          }`}
+        >
+          {todos.length === 0 ? (
+            <div>
+              <p>Walang laman!!</p>
+            </div>
+          ) : (
+            todos.map((todo) => (
+              <TestTodo
+                key={todo._id}
+                todo={todo}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
+                editingId={editingId}
+                setEditingId={setEditingId}
+                editValues={editValues}
+                setEditValues={setEditValues}
+              />
+            ))
+          )}
         </div>
-        <div className="flex flex-col items-center gap-5">
-          <Button
-            label="Add To-Do"
-            iconName="circle-plus"
-            onClick={() => setIsAddModalOpen(true)}
-            className="text-low-done-bg bg-primary"
-          />
-          {/* <AddModal
-            isOpen={isAddModalOpen}
-            onClose={() => {
-              setIsAddModalOpen(false);
-            }}
-            onSave={handleSave}
-          /> */}
-          {/* <Filters /> */}
-          <div
-            className={`grid grid-cols-1 ${
-              todos.length > 0 ? "gap-5 md:grid-cols-2 todo3:grid-cols-3" : ""
-            }`}
-          >
-            {todos.length > 0 ? (
-              todos.map((todo) => (
-                <ToDo
-                  key={todo.id}
-                  {...todo}
-                  todos={todos} // ✅ Pass todos
-                  setTodos={setTodos} // ✅ Pass setTodos
-                  onDelete={() => confirmDelete(todo.id)}
-                />
-              ))
-            ) : (
-              <p className="bg-accent2 rounded-xl p-5 text-white text-sm md:text-base md:px-50">
-                Your ToDo list is empty!
-              </p>
-            )}
-          </div>
-        </div>
-        <DeleteModal
-          isOpen={isDeleteModalOpen}
-          onClose={() => setIsDeleteModalOpen(false)}
-          onConfirm={handleDelete}
-        />
       </div>
     </>
   );

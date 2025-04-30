@@ -1,135 +1,111 @@
-import { useState, FC, useEffect } from "react";
+import axios from "axios";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-import {
-  todoStatuses,
-  todoPriorities,
-  TodoStatus,
-  TodoPriority,
-} from "../utils/todoConstants"; // Import your types and data
 
-import Dropdown, { DropdownOption } from "./Dropdown";
-import DueDatePicker from "./DueDatePicker";
-import { v4 as uuidv4 } from "uuid";
+import { Button } from "@/components/ui/button";
 
-interface AddModalProps {
+const AddModal = ({
+  isOpen,
+  onClose,
+}: {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (todo: {
-    id: string;
-    title: string;
-    description: string;
-    status: TodoStatus;
-    priority: TodoPriority;
-    dueDate: string;
-    createdAt: string;
-  }) => void;
-}
-
-const AddModal: FC<AddModalProps> = ({ isOpen, onClose, onSave }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState<DropdownOption | null>(
-    todoStatuses[0]
-  );
-  const [selectedPriority, setSelectedPriority] =
-    useState<DropdownOption | null>(todoPriorities[1]);
-  const [dueDate, setDueDate] = useState<Date | null>(new Date());
-
-  // resets the selected value whenever add modal is opened
-  useEffect(() => {
-    if (isOpen) {
-      setTitle("");
-      setDescription("");
-      setSelectedStatus(todoStatuses[0]);
-      setSelectedPriority(todoPriorities[1]);
-      setDueDate(new Date());
-    }
-  }, [isOpen]);
-
-  const handleSubmit = () => {
-    if (!title.trim() || !description.trim()) {
-      alert("Title and Description are required");
-      return;
-    }
-    const newItem = {
-      id: uuidv4(),
-      title,
-      description,
-      status: selectedStatus?.label as TodoStatus,
-      priority: selectedPriority?.label as TodoPriority, // Ensure correct type
-      dueDate: dueDate ? dueDate.toISOString() : new Date().toISOString(), // Convert Date to string
-      createdAt: new Date().toISOString(), // Set current timestamp
-    };
-    console.log("New Item:", newItem);
-    onSave(newItem);
-    onClose();
-  };
-
+}) => {
   if (!isOpen) return null;
 
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [status, setStatus] = useState<string>("");
+  const [dueDate, setDueDate] = useState<string>("");
+  const [priority, setPriority] = useState<string>("");
+
+  const handleAdd = () => {
+    axios
+      .post("http://localhost:3001/api/todo", {
+        title,
+        description,
+        status,
+        dueDate,
+        priority,
+      })
+      .then(() => {
+        location.reload();
+      })
+      .catch((err) => console.log(err));
+  };
+
   return createPortal(
-    <div
-      className={`fixed inset-0 flex items-center justify-center z-3 backdrop-blur-lg`}
-    >
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 className="text-xl font-semibold mb-4 text-primary">
-          Add New Item
-        </h2>
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-2">
+      <div className="bg-white p-4 rounded ">
         <input
           type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 border rounded mb-3"
+          name=""
+          id=""
+          placeholder="Enter title"
+          className="border p-2 rounded mb-2 block w-full"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTitle(e.target.value)
+          }
         />
-        <textarea
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full p-2 border rounded mb-3"
-        ></textarea>
-        <div className="mb-3 flex flex-row gap-2">
-          <label className="block font-semibold mb-1">Status</label>
-          <Dropdown
-            options={todoStatuses}
-            onSelect={setSelectedStatus}
-            defaultValue={todoStatuses[0]}
-            isEditable={true}
-          />
-        </div>
-        <div className="mb-3 flex flex-row gap-2">
-          <label className="block font-semibold mb-1">Priority</label>
-          <Dropdown
-            options={todoPriorities}
-            onSelect={setSelectedPriority}
-            defaultValue={todoPriorities[1]}
-            isEditable={true}
-          />
-        </div>
-        <div className="mb-3 flex flex-row gap-2">
-          <label className="block font-semibold mb-1">Due Date</label>
-          <DueDatePicker
-            dueDate={dueDate || new Date()}
-            onChange={setDueDate}
-            isEditable={true}
-            className={"w-50"}
-          />
-        </div>
-        <button
-          onClick={handleSubmit}
-          className="w-full text-white p-2 rounded bg-primary"
+        <input
+          type="text"
+          name=""
+          id=""
+          placeholder="Enter Description"
+          className="border p-2 rounded mb-2 block w-full"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setDescription(e.target.value)
+          }
+        />
+
+        <input
+          type="date"
+          name=""
+          id=""
+          className="border p-2 rounded mb-2 block w-full"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setDueDate(e.target.value)
+          }
+        />
+
+        <select
+          className="border p-2 rounded mb-2 block w-full"
+          value={status}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            setStatus(e.target.value)
+          }
         >
-          Add
-        </button>
-        <button
-          onClick={onClose}
-          className="w-full text-white p-2 rounded mt-2 bg-accent2"
+          <option value="" disabled hidden>
+            -- Select --
+          </option>
+          <option value="PENDING">PENDING</option>
+          <option value="ONGOING">ONGOING</option>
+          <option value="DONE">DONE</option>
+        </select>
+        <select
+          className="border p-2 rounded mb-2 block w-full"
+          value={priority}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            setPriority(e.target.value)
+          }
         >
-          Cancel
-        </button>
+          <option value="" disabled hidden>
+            -- Select --
+          </option>
+          <option value="LOW">LOW</option>
+          <option value="MEDIUM">MEDIUM</option>
+          <option value="HIGH">HIGH</option>
+        </select>
+
+        <div className="flex justify-end gap-2">
+          <Button onClick={onClose} variant="destructive">
+            Cancel
+          </Button>
+          <Button onClick={handleAdd}>Add</Button>
+        </div>
       </div>
     </div>,
-    document.getElementById("root") as HTMLElement
+    document.body
   );
 };
 
