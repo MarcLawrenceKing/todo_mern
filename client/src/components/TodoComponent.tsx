@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 import {
   Select,
@@ -28,19 +29,29 @@ interface TodoComponentProps {
   handleDelete: (id: string) => void;
   handleEdit: (
     id: string,
-    values: { title: string; dueDate: string; status: string }
+    values: {
+      title: string;
+      description: string;
+      dueDate: string;
+      status: string;
+      priority: string;
+    }
   ) => void;
   editingId: string | null;
   setEditingId: (id: string | null) => void;
   editValues: {
     title: string;
+    description: string;
     dueDate: string;
     status: string;
+    priority: string;
   };
   setEditValues: (values: {
     title: string;
+    description: string;
     dueDate: string;
     status: string;
+    priority: string;
   }) => void;
 }
 
@@ -67,7 +78,18 @@ const TodoComponent = ({
           <p className="font-bold text-xl"> {todo.title}</p>
         )}
       </div>
-      <div className="">{todo.description}</div>
+      <div className="">
+        {editingId === todo._id ? (
+          <Textarea
+            value={editValues.description}
+            onChange={(e) =>
+              setEditValues({ ...editValues, description: e.target.value })
+            }
+          />
+        ) : (
+          <p className="text-lg"> {todo.description}</p>
+        )}
+      </div>
       <div className="flex items-center gap-2">
         DUE DATE:{" "}
         {editingId === todo._id ? (
@@ -116,7 +138,39 @@ const TodoComponent = ({
           </span>
         )}
       </div>
-      <div className="">PRIORITY: {todo.priority}</div>
+      <div className="flex items-center gap-2">
+        PRIORITY:
+        {editingId === todo._id ? (
+          <Select
+            value={editValues.priority}
+            onValueChange={(e) => setEditValues({ ...editValues, priority: e })}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a priority" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Priority</SelectLabel>
+                <SelectItem value="HIGH">HIGH</SelectItem>
+                <SelectItem value="MEDIUM">MEDIUM</SelectItem>
+                <SelectItem value="LOW">LOW</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        ) : (
+          <span
+            className={`font-semibold px-2 py-1 rounded ${
+              todo.status === "HIGH"
+                ? "text-red-600 bg-red-100"
+                : todo.status === "MEDIUM"
+                ? "text-yellow-600 bg-yellow-100"
+                : "text-green-800 bg-green-100"
+            }`}
+          >
+            {todo.priority}
+          </span>
+        )}
+      </div>
       <div className="">
         CREATED:{" "}
         {new Date(todo.createdAt).toLocaleString("en-US", {
@@ -156,8 +210,10 @@ const TodoComponent = ({
               setEditingId(todo._id);
               setEditValues({
                 title: todo.title,
+                description: todo.description,
                 dueDate: todo.dueDate,
                 status: todo.status,
+                priority: todo.priority,
               });
             }}
           >

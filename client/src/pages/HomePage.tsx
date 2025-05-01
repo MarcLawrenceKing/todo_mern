@@ -6,6 +6,7 @@ import TodoComponent from "../components/TodoComponent";
 
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
+import DeleteModal from "../components/DeleteModal";
 
 interface Todo {
   _id: string;
@@ -19,14 +20,19 @@ interface Todo {
 }
 
 const HomePage = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); //for add modal
   const [todos, setTodos] = useState<Todo[]>([]);
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false); // for delete modal
+  const [todoDelete, setTodoDelete] = useState<string | null>(null); // the todo to be deleted
 
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editValues, setEditValues] = useState({
     title: "",
+    description: "",
     dueDate: "",
     status: "",
+    priority: "",
   });
 
   useEffect(() => {
@@ -35,6 +41,12 @@ const HomePage = () => {
       .then((result) => setTodos(result.data))
       .catch((err) => console.log(err));
   }, []);
+
+  // to confirm first before deleting
+  const confirmDelete = (id: string) => {
+    setTodoDelete(id);
+    setDeleteModalOpen(true);
+  };
 
   const handleDelete = (id: string) => {
     axios
@@ -76,7 +88,7 @@ const HomePage = () => {
               <TodoComponent
                 key={todo._id}
                 todo={todo}
-                handleDelete={handleDelete}
+                handleDelete={confirmDelete} //confirm first before deleting
                 handleEdit={handleEdit}
                 editingId={editingId}
                 setEditingId={setEditingId}
@@ -86,6 +98,18 @@ const HomePage = () => {
             ))
           )}
         </div>
+        <DeleteModal
+          isOpen={deleteModalOpen}
+          onClose={() => {
+            setDeleteModalOpen(false);
+            setTodoDelete(null);
+          }}
+          onConfirm={() => {
+            if (todoDelete) handleDelete(todoDelete);
+            setDeleteModalOpen(false);
+            setTodoDelete(null);
+          }}
+        />
       </div>
     </>
   );

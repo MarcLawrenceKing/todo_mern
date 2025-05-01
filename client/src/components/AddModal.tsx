@@ -3,6 +3,18 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "./ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const AddModal = ({
   isOpen,
@@ -36,66 +48,54 @@ const AddModal = ({
 
   return createPortal(
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-2">
-      <div className="bg-white p-4 rounded ">
-        <input
+      <div className="flex flex-col gap-2 bg-white p-6 rounded ">
+        <Input
           type="text"
-          name=""
-          id=""
           placeholder="Enter title"
-          className="border p-2 rounded mb-2 block w-full"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setTitle(e.target.value)
           }
         />
-        <input
-          type="text"
-          name=""
-          id=""
+        <Textarea
           placeholder="Enter Description"
-          className="border p-2 rounded mb-2 block w-full"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
             setDescription(e.target.value)
           }
         />
-
-        <input
+        <Input
           type="date"
-          name=""
-          id=""
-          className="border p-2 rounded mb-2 block w-full"
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDueDate(e.target.value)
           }
         />
 
-        <select
-          className="border p-2 rounded mb-2 block w-full"
-          value={status}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setStatus(e.target.value)
-          }
-        >
-          <option value="" disabled hidden>
-            -- Select --
-          </option>
-          <option value="PENDING">PENDING</option>
-          <option value="ONGOING">ONGOING</option>
-          <option value="DONE">DONE</option>
-        </select>
-        <select
-          className="border p-2 rounded mb-2 block w-full"
-          value={priority}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setPriority(e.target.value)
-          }
-        >
-          <option value="" disabled hidden>
-            -- Select --
-          </option>
-          <option value="LOW">LOW</option>
-          <option value="MEDIUM">MEDIUM</option>
-          <option value="HIGH">HIGH</option>
-        </select>
+        <Select value={status} onValueChange={setStatus}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="-- Select status --" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Status</SelectLabel>
+              <SelectItem value="PENDING">PENDING</SelectItem>
+              <SelectItem value="ONGOING">ONGOING</SelectItem>
+              <SelectItem value="DONE">DONE</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+
+        <Select value={priority} onValueChange={setPriority}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="-- Select priority --" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Priority</SelectLabel>
+              <SelectItem value="LOW">LOW</SelectItem>
+              <SelectItem value="MEDIUM">MEDIUM</SelectItem>
+              <SelectItem value="HIGH">HIGH</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
 
         <div className="flex justify-end gap-2">
           <Button onClick={onClose} variant="destructive">
